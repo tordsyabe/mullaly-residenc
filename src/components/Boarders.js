@@ -2,13 +2,19 @@ import React, { useContext, Fragment, useState } from 'react';
 
 import Boarder from './Boarder';
 import { BoarderContext } from '../contexts/BoarderContext';
-import { Typography, Button, Fab, Grid } from '@material-ui/core';
+import {
+  Typography,
+  Button,
+  Fab,
+  Grid,
+  CircularProgress
+} from '@material-ui/core';
 import AddBoarderDialog from './ui/AddBoarderDialog';
 
 import AddIcon from '@material-ui/icons/Add';
 
 const Boarders = props => {
-  const { boarders } = useContext(BoarderContext);
+  const { boarders, isBoardersEmpty } = useContext(BoarderContext);
 
   const [open, setOpen] = useState(false);
 
@@ -19,6 +25,20 @@ const Boarders = props => {
   const handleClose = () => {
     setOpen(false);
   };
+
+  if (isBoardersEmpty) {
+    return (
+      <Grid
+        container
+        justify='center'
+        alignContent='center'
+        style={{
+          marginTop: '20%'
+        }}>
+        <CircularProgress />
+      </Grid>
+    );
+  }
 
   if (boarders.length === 0) {
     return (
@@ -39,8 +59,8 @@ const Boarders = props => {
     <Fragment>
       <Grid container spacing={2}>
         {boarders.map(boarder => (
-          <Grid item xs={12} lg={4} md={6}>
-            <Boarder key={boarder.id} boarder={boarder} />
+          <Grid key={boarder.id} item xs={12} lg={4} md={6}>
+            <Boarder boarder={boarder} />
           </Grid>
         ))}
       </Grid>

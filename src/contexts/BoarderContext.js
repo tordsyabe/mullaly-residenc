@@ -6,6 +6,7 @@ export const BoarderContext = createContext();
 
 const BoarderContextProvider = props => {
   const [boarders, setBoarders] = useState([]);
+  const [isBoardersEmpty, setIsBoardersEmpty] = useState(true);
 
   useEffect(() => {
     const unsubscribe = firebase
@@ -18,6 +19,7 @@ const BoarderContextProvider = props => {
             ...doc.data()
           }));
           setBoarders(newBoarders);
+          setIsBoardersEmpty(false);
         },
         error => console.log(error)
       );
@@ -26,7 +28,8 @@ const BoarderContextProvider = props => {
   }, []);
 
   return (
-    <BoarderContext.Provider value={{ boarders, setBoarders }}>
+    <BoarderContext.Provider
+      value={{ boarders, setBoarders, isBoardersEmpty, setIsBoardersEmpty }}>
       {props.children}
     </BoarderContext.Provider>
   );

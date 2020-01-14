@@ -78,6 +78,24 @@ const AddBoarderDialog = ({ open, handleClose }) => {
                 parseInt(utilities)
           }
         ]
+      })
+      .then(() => {
+        handleClose();
+        setDateJoined('');
+
+        setHouse('');
+        setName('');
+        setRoomNumber('');
+        setRoomRate('');
+        setTypeOfRent('');
+        setDeposit('');
+        setUtilities('');
+        setAdvancePayment('');
+
+        setEmail('');
+        setPermanentAddress('');
+        setMobileNumber('');
+        console.log('payment success.');
       });
   };
 

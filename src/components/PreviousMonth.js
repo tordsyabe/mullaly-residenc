@@ -17,11 +17,11 @@ const PreviousMonth = ({ boarder }) => {
     <Fragment>
       <Grid container spacing={1}>
         <Grid item xs={6}>
-          <Typography variant='body2'>{dueDate}</Typography>
+          <Typography variant='body1'>{dueDate}</Typography>
           <br />
 
           <Typography variant='body2'>
-            Last month payment:{' '}
+            Last payment:{' '}
             {boarderDues.amountPaid.toLocaleString(undefined, {
               minimumFractionDigits: 2
             })}

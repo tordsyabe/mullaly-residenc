@@ -6,10 +6,11 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { Chip, Divider, Grid } from '@material-ui/core';
+import { Divider, Grid } from '@material-ui/core';
+
+import RemoveCircleOutlineRoundedIcon from '@material-ui/icons/RemoveCircleOutlineRounded';
 
 import PreviousMonth from './PreviousMonth';
-// import CurrentMonth from './CurrentMonth';
 import { formatDate } from '../utils/Utils';
 import PaymentDialog from './ui/PaymentDialog';
 
@@ -24,6 +25,8 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+
+import firebase from '../firebase';
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -82,6 +85,20 @@ const Boarder = ({ boarder }) => {
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
+  };
+
+  const handleDeleteDues = dueDate => {
+    const newDues = [...boarder.dues];
+
+    const updatedDues = newDues.filter(due => due.datePaid.seconds !== dueDate);
+
+    firebase
+      .firestore()
+      .collection('boarders')
+      .doc(boarder.id)
+      .update({
+        dues: updatedDues
+      });
   };
 
   return (
@@ -166,19 +183,28 @@ const Boarder = ({ boarder }) => {
             <Divider />
             <br />
             <Typography variant='h6'>Payment History</Typography>
-            {boarder.dues.map(due => (
-              <Grid container>
+            {boarder.dues.map((due, i) => (
+              <Grid container key={i}>
                 <Grid item xs={8}>
                   <Typography variant='body2'>
                     {formatDate(new Date(due.datePaid.seconds * 1000))}
                   </Typography>
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={2}>
                   <Typography variant='body2'>
                     {due.amountPaid.toLocaleString(undefined, {
                       minimumFractionDigits: 2
                     })}
                   </Typography>
+                </Grid>
+                <Grid item xs={2}>
+                  {i >= 1 && (
+                    <RemoveCircleOutlineRoundedIcon
+                      fontSize='small'
+                      style={{ color: 'red', cursor: 'pointer' }}
+                      onClick={() => handleDeleteDues(due.datePaid.seconds)}
+                    />
+                  )}
                 </Grid>
               </Grid>
             ))}
