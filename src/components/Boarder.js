@@ -178,7 +178,7 @@ const Boarder = ({ boarder }) => {
             <br />
             <Typography variant='h6'>Payment History</Typography>
             {boarder.dues.map((due, i) => (
-              <Grid container key={i}>
+              <Grid container key={i} justify='center' alignItems='center'>
                 <Grid item xs={8}>
                   <Typography variant='body2'>
                     {formatDate(new Date(due.datePaid.seconds * 1000))}
