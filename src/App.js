@@ -14,7 +14,7 @@ const theme = createMuiTheme({
     },
 
     secondary: {
-      main: '#212121'
+      main: '#fafafa'
     }
   }
 });
@@ -25,11 +25,12 @@ function App() {
       <BoarderContextProvider>
         <Header />
         <Container style={{ margin: '1rem 0' }}>
-          <Typography variant='h5'>Lopez Jaena House</Typography>
-          <Typography variant='caption'>
-            Lopez Jaena St, Bacolod City
-          </Typography>
-
+          <div style={{ marginBottom: '1rem' }}>
+            <Typography variant='h5'>Lopez Jaena House</Typography>
+            <Typography variant='caption'>
+              Lopez Jaena St, Bacolod City
+            </Typography>
+          </div>
           <Boarders />
         </Container>
       </BoarderContextProvider>

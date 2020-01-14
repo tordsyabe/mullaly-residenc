@@ -6,7 +6,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { Divider, Grid } from '@material-ui/core';
+import { Divider, Grid, Chip } from '@material-ui/core';
 
 import RemoveCircleOutlineRoundedIcon from '@material-ui/icons/RemoveCircleOutlineRounded';
 
@@ -15,23 +15,16 @@ import { formatDate } from '../utils/Utils';
 import PaymentDialog from './ui/PaymentDialog';
 
 import clsx from 'clsx';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
 import Collapse from '@material-ui/core/Collapse';
-import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import { red } from '@material-ui/core/colors';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import firebase from '../firebase';
 
 const useStyles = makeStyles(theme => ({
   card: {
     minWidth: 275,
-    marginTop: '1rem',
     paddingBottom: '0.6rem'
   },
   bullet: {
@@ -106,6 +99,7 @@ const Boarder = ({ boarder }) => {
       <Card className={classes.card}>
         <CardContent>
           <Typography variant='h5'>{boarder.name}</Typography>
+
           <Typography variant='body2'>
             Room rate:{' '}
             {boarder.roomRate.toLocaleString(undefined, {
@@ -190,14 +184,14 @@ const Boarder = ({ boarder }) => {
                     {formatDate(new Date(due.datePaid.seconds * 1000))}
                   </Typography>
                 </Grid>
-                <Grid item xs={2}>
+                <Grid item xs={3}>
                   <Typography variant='body2'>
                     {due.amountPaid.toLocaleString(undefined, {
                       minimumFractionDigits: 2
                     })}
                   </Typography>
                 </Grid>
-                <Grid item xs={2}>
+                <Grid item xs={1}>
                   {i >= 1 && (
                     <RemoveCircleOutlineRoundedIcon
                       fontSize='small'

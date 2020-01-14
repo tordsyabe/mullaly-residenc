@@ -2,13 +2,7 @@ import React, { useContext, Fragment, useState } from 'react';
 
 import Boarder from './Boarder';
 import { BoarderContext } from '../contexts/BoarderContext';
-import {
-  Typography,
-  Button,
-  Fab,
-  Grid,
-  CircularProgress
-} from '@material-ui/core';
+import { Typography, Fab, Grid, CircularProgress } from '@material-ui/core';
 import AddBoarderDialog from './ui/AddBoarderDialog';
 
 import AddIcon from '@material-ui/icons/Add';
