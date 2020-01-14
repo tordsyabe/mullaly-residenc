@@ -1,25 +1,39 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+
+import Header from './components/layout/Header';
+import { Typography, Container } from '@material-ui/core';
+import Boarders from './components/Boarders';
+
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import BoarderContextProvider from './contexts/BoarderContext';
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#1976d2'
+    },
+
+    secondary: {
+      main: '#212121'
+    }
+  }
+});
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <MuiThemeProvider theme={theme}>
+      <BoarderContextProvider>
+        <Header />
+        <Container style={{ margin: '1rem 0' }}>
+          <Typography variant='h5'>Lopez Jaena House</Typography>
+          <Typography variant='caption'>
+            Lopez Jaena St, Bacolod City
+          </Typography>
+
+          <Boarders />
+        </Container>
+      </BoarderContextProvider>
+    </MuiThemeProvider>
   );
 }
 
