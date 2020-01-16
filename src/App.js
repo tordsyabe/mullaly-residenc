@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import Header from './components/layout/Header';
-import { Typography, Container } from '@material-ui/core';
-import Boarders from './components/Boarders';
+import { Container } from '@material-ui/core';
 
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import BoarderContextProvider from './contexts/BoarderContext';
-import HouseContextProvider from './contexts/HouseContext';
+import { BoarderContext } from './contexts/BoarderContext';
+
+import { FormControl, Select, MenuItem } from '@material-ui/core';
+import House from './components/House';
+import { HouseContext } from './contexts/HouseContext';
 
 const theme = createMuiTheme({
   palette: {
@@ -21,22 +23,31 @@ const theme = createMuiTheme({
 });
 
 function App() {
+  const { houses } = useContext(HouseContext);
+  const { setSelectedHouse, selectedHouse } = useContext(BoarderContext);
+
+  const handleChange = event => {
+    setSelectedHouse(event.target.value);
+  };
   return (
     <MuiThemeProvider theme={theme}>
-      <HouseContextProvider>
-        <BoarderContextProvider>
-          <Header />
-          <Container style={{ margin: '1rem 0' }}>
-            <div style={{ marginBottom: '1rem' }}>
-              <Typography variant='h5'>Lopez Jaena House</Typography>
-              <Typography variant='caption'>
-                Lopez Jaena St, Bacolod City
-              </Typography>
-            </div>
-            <Boarders />
-          </Container>
-        </BoarderContextProvider>
-      </HouseContextProvider>
+      <Header>
+        <FormControl style={{ width: '200px' }}>
+          <Select
+            value={selectedHouse}
+            onChange={handleChange}
+            disableUnderline>
+            {houses.map(house => (
+              <MenuItem key={house.id} value={house.id}>
+                {house.name}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </Header>
+      <Container style={{ margin: '1rem 0' }}>
+        <House />
+      </Container>
     </MuiThemeProvider>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useState, Fragment, useEffect } from 'react';
+import React, { useState, Fragment } from 'react';
 
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -29,8 +29,7 @@ const PaymentDialog = ({ open, handleClose, boarder }) => {
 
   const dueAmount = boarderDues.outstanding + boarderDues.balance;
 
-  const [prevDueAmount, setPrevDueAmount] = useState(dueAmount);
-  const [prevDueDate, setPrevDueDate] = useState(dueDate);
+  const [prevDueDate] = useState(dueDate);
 
   const handleDateChange = date => {
     setSelectedDate(date);
