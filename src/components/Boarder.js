@@ -20,7 +20,7 @@ import IconButton from '@material-ui/core/IconButton';
 import { red } from '@material-ui/core/colors';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-import firebase from '../firebase';
+import DeleteDialog from './ui/DeleteDialog';
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -64,34 +64,33 @@ const Boarder = ({ boarder }) => {
 
   const dateJoined = formatDate(new Date(boarder.dateJoined.seconds * 1000));
 
-  const [open, setOpen] = useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const [openPaymentDialog, setOpenPaymentDialog] = useState(false);
 
   const [expanded, setExpanded] = React.useState(false);
+
+  const [paymentToDelete, setPaymentToDelete] = useState({});
+
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+
+  const handleClickOpenPaymentDialog = () => {
+    setOpenPaymentDialog(true);
+  };
+
+  const handleClosePaymentDialog = () => {
+    setOpenPaymentDialog(false);
+  };
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
-  const handleDeleteDues = dueDate => {
-    const newDues = [...boarder.dues];
+  const handleDeleteDues = datePaid => {
+    setOpenDeleteDialog(true);
+    setPaymentToDelete(datePaid);
+  };
 
-    const updatedDues = newDues.filter(due => due.datePaid.seconds !== dueDate);
-
-    firebase
-      .firestore()
-      .collection('boarders')
-      .doc(boarder.id)
-      .update({
-        dues: updatedDues
-      });
+  const handleCloseDeleteDialog = () => {
+    setOpenDeleteDialog(false);
   };
 
   return (
@@ -131,7 +130,7 @@ const Boarder = ({ boarder }) => {
             size='small'
             variant='contained'
             color='primary'
-            onClick={handleClickOpen}>
+            onClick={handleClickOpenPaymentDialog}>
             Make Payment
           </Button>
           <IconButton
@@ -194,9 +193,12 @@ const Boarder = ({ boarder }) => {
                 <Grid item xs={1}>
                   {i >= 1 && (
                     <RemoveCircleOutlineRoundedIcon
-                      fontSize='small'
-                      style={{ color: 'red', cursor: 'pointer' }}
-                      onClick={() => handleDeleteDues(due.datePaid.seconds)}
+                      style={{
+                        color: 'red',
+                        cursor: 'pointer',
+                        fontSize: '1rem'
+                      }}
+                      onClick={() => handleDeleteDues(due)}
                     />
                   )}
                 </Grid>
@@ -205,7 +207,17 @@ const Boarder = ({ boarder }) => {
           </CardContent>
         </Collapse>
       </Card>
-      <PaymentDialog open={open} handleClose={handleClose} boarder={boarder} />
+      <PaymentDialog
+        open={openPaymentDialog}
+        handleClose={handleClosePaymentDialog}
+        boarder={boarder}
+      />
+      <DeleteDialog
+        open={openDeleteDialog}
+        handleClose={handleCloseDeleteDialog}
+        toDelete={paymentToDelete}
+        boarder={boarder}
+      />
     </Fragment>
   );
 };

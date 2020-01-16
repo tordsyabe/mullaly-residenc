@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -15,8 +15,18 @@ import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker
 } from '@material-ui/pickers';
+import {
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Grid
+} from '@material-ui/core';
+import { HouseContext } from '../../contexts/HouseContext';
 
 const AddBoarderDialog = ({ open, handleClose }) => {
+  const { houses } = useContext(HouseContext);
+
   const [dateJoined, setDateJoined] = useState(new Date());
 
   const [house, setHouse] = useState('');
@@ -56,7 +66,7 @@ const AddBoarderDialog = ({ open, handleClose }) => {
         deposit: parseInt(deposit),
         roomNumber,
         typeOfRent,
-        house,
+        house: firebase.firestore().doc(`houses/${house}`),
         email,
         mobileNumber,
         permanentAddress,
@@ -139,49 +149,75 @@ const AddBoarderDialog = ({ open, handleClose }) => {
             value={name}
             onChange={e => setName(e.target.value)}
           />
-          <TextField
-            margin='dense'
-            id='rootRate'
-            label='Room Rate'
-            type='number'
-            variant='outlined'
-            required
-            value={roomRate}
-            onChange={e => setRoomRate(e.target.value)}
-          />
+          <Grid container>
+            <Grid item xs={12} md={6}>
+              <TextField
+                margin='dense'
+                id='rootRate'
+                label='Room Rate'
+                type='number'
+                variant='outlined'
+                required
+                value={roomRate}
+                onChange={e => setRoomRate(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <TextField
+                margin='dense'
+                id='utilities'
+                label='Utilities'
+                type='number'
+                variant='outlined'
+                required
+                value={utilities}
+                onChange={e => setUtilities(e.target.value)}
+              />
+            </Grid>
+
+            <Grid item xs={12} md={6}>
+              <TextField
+                margin='dense'
+                id='advancePayment'
+                label='Advance Payment'
+                type='number'
+                variant='outlined'
+                required
+                value={advancePayment}
+                onChange={e => setAdvancePayment(e.target.value)}
+              />
+            </Grid>
+
+            <Grid item xs={12} md={6}>
+              <TextField
+                margin='dense'
+                id='deposit'
+                label='Deposit'
+                type='number'
+                variant='outlined'
+                required
+                value={deposit}
+                onChange={e => setDeposit(e.target.value)}
+              />
+            </Grid>
+          </Grid>
 
           <TextField
-            margin='dense'
-            id='utilities'
-            label='Utilities'
-            type='number'
+            select
+            fullWidth
             variant='outlined'
-            required
-            value={utilities}
-            onChange={e => setUtilities(e.target.value)}
-          />
-
-          <TextField
             margin='dense'
-            id='advancePayment'
-            label='Advance Payment'
-            type='number'
-            variant='outlined'
+            label='Select'
+            helperText='Please select an apartment'
+            value={house}
             required
-            value={advancePayment}
-            onChange={e => setAdvancePayment(e.target.value)}
-          />
-
-          <TextField
-            margin='dense'
-            id='deposit'
-            label='Deposit'
-            type='number'
-            variant='outlined'
-            required
-            value={deposit}
-            onChange={e => setDeposit(e.target.value)}
-          />
+            onChange={e => setHouse(e.target.value)}>
+            {houses.map(house => (
+              <MenuItem key={house.id} value={house.id}>
+                {house.name}
+              </MenuItem>
+            ))}
+          </TextField>
 
           <TextField
             margin='dense'
@@ -209,18 +245,6 @@ const AddBoarderDialog = ({ open, handleClose }) => {
 
           <TextField
             margin='dense'
-            id='house'
-            label='House Name'
-            type='text'
-            fullWidth
-            variant='outlined'
-            required
-            value={house}
-            onChange={e => setHouse(e.target.value)}
-          />
-
-          <TextField
-            margin='dense'
             id='mobile'
             label='Mobile Number'
             type='text'
@@ -234,7 +258,7 @@ const AddBoarderDialog = ({ open, handleClose }) => {
             margin='dense'
             id='email'
             label='Email'
-            type='text'
+            type='email'
             fullWidth
             variant='outlined'
             value={email}

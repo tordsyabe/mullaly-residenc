@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, Fragment, useEffect } from 'react';
 
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -16,7 +16,6 @@ import {
 
 import firebase from '../../firebase';
 import { formatDate } from '../../utils/Utils';
-import { CircularProgress } from '@material-ui/core';
 
 const PaymentDialog = ({ open, handleClose, boarder }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -29,6 +28,9 @@ const PaymentDialog = ({ open, handleClose, boarder }) => {
   const dueDate = formatDate(new Date(boarderDues.dueDate.seconds * 1000));
 
   const dueAmount = boarderDues.outstanding + boarderDues.balance;
+
+  const [prevDueAmount, setPrevDueAmount] = useState(dueAmount);
+  const [prevDueDate, setPrevDueDate] = useState(dueDate);
 
   const handleDateChange = date => {
     setSelectedDate(date);
@@ -63,9 +65,6 @@ const PaymentDialog = ({ open, handleClose, boarder }) => {
       });
 
     await setIsPaying(true);
-
-    await setAmount('');
-    await setNote('');
   };
 
   return (
@@ -79,12 +78,19 @@ const PaymentDialog = ({ open, handleClose, boarder }) => {
             <DialogTitle id='form-dialog-title'>Payment success</DialogTitle>
             <DialogContent>
               <DialogContentText>
-                Payment of {boarder.name} for the due date {dueDate} with the
+                Payment of {boarder.name} on due date {prevDueDate} with the
                 amount of{' '}
-                {dueAmount.toLocaleString(undefined, {
+                {parseInt(amount).toLocaleString(undefined, {
                   minimumFractionDigits: 2
                 })}{' '}
                 is successful.
+                <br />
+                <br />
+                Balance:{' '}
+                {boarderDues.balance.toLocaleString(undefined, {
+                  minimumFractionDigits: 2
+                })}{' '}
+                will be added for the next payment.
               </DialogContentText>
               <DialogActions>
                 <Button
@@ -93,6 +99,8 @@ const PaymentDialog = ({ open, handleClose, boarder }) => {
                     setTimeout(() => {
                       setIsPaying(false);
                     }, 1000);
+                    setAmount('');
+                    setNote('');
                   }}
                   color='primary'>
                   Close
