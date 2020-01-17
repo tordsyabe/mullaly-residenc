@@ -19,7 +19,11 @@ const Header = props => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <AppBar position='static' elevation={1} color='secondary'>
+      <AppBar
+        position='static'
+        elevation={0}
+        color='secondary'
+        style={{ background: '#ffffff' }}>
         <Toolbar>
           <IconButton
             edge='start'

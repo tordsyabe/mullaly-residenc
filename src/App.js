@@ -34,6 +34,7 @@ function App() {
       <Header>
         <FormControl style={{ width: '200px' }}>
           <Select
+            id='select-house'
             value={selectedHouse}
             onChange={handleChange}
             disableUnderline>

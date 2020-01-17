@@ -6,7 +6,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { Divider, Grid } from '@material-ui/core';
+import { Divider, Grid, Grow } from '@material-ui/core';
 
 import RemoveCircleOutlineRoundedIcon from '@material-ui/icons/RemoveCircleOutlineRounded';
 
@@ -95,118 +95,122 @@ const Boarder = ({ boarder }) => {
 
   return (
     <Fragment>
-      <Card className={classes.card}>
-        <CardContent>
-          <Typography variant='h5'>{boarder.name}</Typography>
-
-          <Typography variant='body2'>
-            Room rate:{' '}
-            {boarder.roomRate.toLocaleString(undefined, {
-              minimumFractionDigits: 2
-            })}{' '}
-            +{' '}
-            {boarder.utilities.toLocaleString(undefined, {
-              minimumFractionDigits: 2
-            }) + ' (utilities)'}
-          </Typography>
-          <Typography variant='h6'>
-            {totalRent.toLocaleString(undefined, { minimumFractionDigits: 2 })}
-            <span style={{ fontSize: '12px' }}>/month</span>
-          </Typography>
-          <Typography variant='caption'>Date Joined: {dateJoined}</Typography>
-          <br />
-          <br />
-          <Divider />
-          <br />
-
-          <Typography variant='h6'>Due Date</Typography>
-          <br />
-          <PreviousMonth boarder={boarder} />
-          <br />
-        </CardContent>
-        <CardActions style={{ position: 'relative' }}>
-          {/* <Button size='small'>More Details</Button> */}
-          <Button
-            size='small'
-            variant='contained'
-            color='primary'
-            onClick={handleClickOpenPaymentDialog}>
-            Make Payment
-          </Button>
-          <IconButton
-            className={clsx(classes.expand, {
-              [classes.expandOpen]: expanded
-            })}
-            onClick={handleExpandClick}
-            aria-expanded={expanded}
-            aria-label='show more'
-            style={{ position: 'absolute', right: '1rem' }}>
-            <ExpandMoreIcon />
-          </IconButton>
-        </CardActions>
-        <Collapse in={expanded} timeout='auto' unmountOnExit>
+      <Grow in={true} timeout={500}>
+        <Card className={classes.card}>
           <CardContent>
-            <Typography variant='h6'>Contact Details</Typography>
-            <Typography variant='body2'>
-              Permanent Addess: {boarder.permanentAddress}
-            </Typography>
-            <Typography variant='body2'>
-              Mobile Number: {boarder.mobileNumber}
-            </Typography>
-            <Typography variant='body2'>Email: {boarder.email}</Typography>
-            <br />
+            <Typography variant='h5'>{boarder.name}</Typography>
 
-            <Divider />
-            <br />
-            <Typography variant='h6'>Boarder Info</Typography>
             <Typography variant='body2'>
-              Deposit:{' '}
-              {boarder.deposit.toLocaleString(undefined, {
+              Room rate:{' '}
+              {boarder.roomRate.toLocaleString(undefined, {
+                minimumFractionDigits: 2
+              })}{' '}
+              +{' '}
+              {boarder.utilities.toLocaleString(undefined, {
+                minimumFractionDigits: 2
+              }) + ' (utilities)'}
+            </Typography>
+            <Typography variant='h6'>
+              {totalRent.toLocaleString(undefined, {
                 minimumFractionDigits: 2
               })}
+              <span style={{ fontSize: '12px' }}>/month</span>
             </Typography>
-            <Typography variant='body2'>
-              Room Number: {boarder.roomNumber}
-            </Typography>
-            <Typography variant='body2'>
-              Type of Rent: {boarder.typeOfRent}
-            </Typography>
+            <Typography variant='caption'>Date Joined: {dateJoined}</Typography>
             <br />
-
+            <br />
             <Divider />
             <br />
-            <Typography variant='h6'>Payment History</Typography>
-            {boarder.dues.map((due, i) => (
-              <Grid container key={i} justify='center' alignItems='center'>
-                <Grid item xs={8}>
-                  <Typography variant='body2'>
-                    {formatDate(new Date(due.datePaid.seconds * 1000))}
-                  </Typography>
-                </Grid>
-                <Grid item xs={3}>
-                  <Typography variant='body2'>
-                    {due.amountPaid.toLocaleString(undefined, {
-                      minimumFractionDigits: 2
-                    })}
-                  </Typography>
-                </Grid>
-                <Grid item xs={1}>
-                  {i >= 1 && (
-                    <RemoveCircleOutlineRoundedIcon
-                      style={{
-                        color: 'red',
-                        cursor: 'pointer',
-                        fontSize: '1rem'
-                      }}
-                      onClick={() => handleDeleteDues(due)}
-                    />
-                  )}
-                </Grid>
-              </Grid>
-            ))}
+
+            <Typography variant='h6'>Due Date</Typography>
+            <br />
+            <PreviousMonth boarder={boarder} />
+            <br />
           </CardContent>
-        </Collapse>
-      </Card>
+          <CardActions style={{ position: 'relative' }}>
+            {/* <Button size='small'>More Details</Button> */}
+            <Button
+              size='small'
+              variant='contained'
+              color='primary'
+              onClick={handleClickOpenPaymentDialog}>
+              Make Payment
+            </Button>
+            <IconButton
+              className={clsx(classes.expand, {
+                [classes.expandOpen]: expanded
+              })}
+              onClick={handleExpandClick}
+              aria-expanded={expanded}
+              aria-label='show more'
+              style={{ position: 'absolute', right: '1rem' }}>
+              <ExpandMoreIcon />
+            </IconButton>
+          </CardActions>
+          <Collapse in={expanded} timeout='auto' unmountOnExit>
+            <CardContent>
+              <Typography variant='h6'>Contact Details</Typography>
+              <Typography variant='body2'>
+                Permanent Addess: {boarder.permanentAddress}
+              </Typography>
+              <Typography variant='body2'>
+                Mobile Number: {boarder.mobileNumber}
+              </Typography>
+              <Typography variant='body2'>Email: {boarder.email}</Typography>
+              <br />
+
+              <Divider />
+              <br />
+              <Typography variant='h6'>Boarder Info</Typography>
+              <Typography variant='body2'>
+                Deposit:{' '}
+                {boarder.deposit.toLocaleString(undefined, {
+                  minimumFractionDigits: 2
+                })}
+              </Typography>
+              <Typography variant='body2'>
+                Room Number: {boarder.roomNumber}
+              </Typography>
+              <Typography variant='body2'>
+                Type of Rent: {boarder.typeOfRent}
+              </Typography>
+              <br />
+
+              <Divider />
+              <br />
+              <Typography variant='h6'>Payment History</Typography>
+              {boarder.dues.map((due, i) => (
+                <Grid container key={i} justify='center' alignItems='center'>
+                  <Grid item xs={8}>
+                    <Typography variant='body2'>
+                      {formatDate(new Date(due.datePaid.seconds * 1000))}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={3}>
+                    <Typography variant='body2'>
+                      {due.amountPaid.toLocaleString(undefined, {
+                        minimumFractionDigits: 2
+                      })}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={1}>
+                    {i >= 1 && (
+                      <RemoveCircleOutlineRoundedIcon
+                        style={{
+                          color: 'red',
+                          cursor: 'pointer',
+                          fontSize: '1rem'
+                        }}
+                        onClick={() => handleDeleteDues(due)}
+                      />
+                    )}
+                  </Grid>
+                </Grid>
+              ))}
+            </CardContent>
+          </Collapse>
+        </Card>
+      </Grow>
       <PaymentDialog
         open={openPaymentDialog}
         handleClose={handleClosePaymentDialog}

@@ -7,11 +7,13 @@ const House = props => {
   const { house } = useContext(BoarderContext);
   return (
     <Fragment>
-      <div style={{ marginBottom: '1rem' }}>
-        <Typography variant='h5'>{house.name}</Typography>
-
-        <Typography variant='caption'>{house.address}</Typography>
-      </div>
+      <Fade in={true} timeout={500}>
+        <div style={{ marginBottom: '1rem' }}>
+          <Typography variant='h4'>Boarders</Typography>
+          <br />
+          <Typography variant='subtitle1'>{house.address}</Typography>
+        </div>
+      </Fade>
       <Boarders />
     </Fragment>
   );
