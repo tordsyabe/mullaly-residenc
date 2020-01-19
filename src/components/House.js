@@ -1,11 +1,36 @@
 import React, { Fragment, useContext } from 'react';
-import { Typography, Fade, Container } from '@material-ui/core';
+import {
+  Typography,
+  Fade,
+  Container,
+  CircularProgress,
+  Grid
+} from '@material-ui/core';
 import Boarders from './Boarders';
 import { BoarderContext } from '../contexts/BoarderContext';
 import Header from './layout/Header';
 
 const House = props => {
-  const { house } = useContext(BoarderContext);
+  const { house, isBoardersEmpty } = useContext(BoarderContext);
+
+  if (isBoardersEmpty) {
+    return (
+      <div
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}>
+        <CircularProgress />
+      </div>
+    );
+  }
+
   return (
     <Fragment>
       <Header />

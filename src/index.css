@@ -20,3 +20,7 @@ code {
 .MuiSelect-icon > path {
   color: #ffffff;
 }
+
+.no-text-decoration {
+  text-decoration: none;
+}

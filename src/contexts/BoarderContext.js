@@ -13,29 +13,24 @@ const BoarderContextProvider = props => {
   const [house, setHouse] = useState({});
 
   useEffect(() => {
-    if (selectedHouse !== '') {
-      const unsubscribe = firebase
-        .firestore()
-        .collection('boarders')
-        .where(
-          'house',
-          '==',
-          firebase.firestore().doc(`houses/${selectedHouse}`)
-        )
-        .onSnapshot(
-          snapShot => {
-            const newBoarders = snapShot.docs.map(doc => ({
-              id: doc.id,
-              ...doc.data()
-            }));
-            setBoarders(newBoarders);
-            setIsBoardersEmpty(false);
-          },
-          error => console.log(error)
-        );
+    setIsBoardersEmpty(true);
+    const unsubscribe = firebase
+      .firestore()
+      .collection('boarders')
+      .where('house', '==', firebase.firestore().doc(`houses/${selectedHouse}`))
+      .onSnapshot(
+        snapShot => {
+          const newBoarders = snapShot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+          }));
+          setBoarders(newBoarders);
+          setIsBoardersEmpty(false);
+        },
+        error => console.log(error)
+      );
 
-      return () => unsubscribe();
-    }
+    return () => unsubscribe();
   }, [selectedHouse]);
 
   useEffect(() => {
