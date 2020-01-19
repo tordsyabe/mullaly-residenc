@@ -1,20 +1,35 @@
 import React, { Fragment, useContext } from 'react';
-import { Typography, Fade } from '@material-ui/core';
+import { Typography, Fade, Container } from '@material-ui/core';
 import Boarders from './Boarders';
 import { BoarderContext } from '../contexts/BoarderContext';
+import Header from './layout/Header';
 
 const House = props => {
   const { house } = useContext(BoarderContext);
   return (
     <Fragment>
+      <Header />
       <Fade in={true} timeout={500}>
-        <div style={{ marginBottom: '1rem' }}>
-          <Typography variant='h4'>Boarders</Typography>
-          <br />
-          <Typography variant='subtitle1'>{house.address}</Typography>
+        <div
+          style={{
+            marginBottom: '1rem',
+            backgroundColor: '#1976d2',
+            padding: '1rem 0',
+            color: '#ffffff',
+            height: '250px'
+          }}>
+          <Container style={{ marginTop: '4rem' }}>
+            <Typography variant='h4'>Boarders</Typography>
+            <br />
+            <Typography variant='caption'>{house.address}</Typography>
+          </Container>
         </div>
       </Fade>
-      <Boarders />
+      <div style={{ position: 'absolute', top: '12rem', width: '100%' }}>
+        <Container>
+          <Boarders />
+        </Container>
+      </div>
     </Fragment>
   );
 };

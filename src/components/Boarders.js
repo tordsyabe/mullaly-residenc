@@ -27,7 +27,7 @@ const Boarders = props => {
         justify='center'
         alignContent='center'
         style={{
-          marginTop: '20%'
+          marginTop: '8rem'
         }}>
         <CircularProgress />
       </Grid>

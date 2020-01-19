@@ -1,10 +1,44 @@
-import React from 'react';
+import React, { useContext, Fragment } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+
+import { HouseContext } from '../../contexts/HouseContext';
+import { FormControl, Select, MenuItem } from '@material-ui/core';
+import { BoarderContext } from '../../contexts/BoarderContext';
+
+import useScrollTrigger from '@material-ui/core/useScrollTrigger';
+
+import PropTypes from 'prop-types';
+import CssBaseline from '@material-ui/core/CssBaseline';
+
+function ElevationScroll(props) {
+  const { children, window } = props;
+  // Note that you normally won't need to set the window ref as useScrollTrigger
+  // will default to window.
+  // This is only being set here because the demo is in an iframe.
+  const trigger = useScrollTrigger({
+    disableHysteresis: true,
+    threshold: 0,
+    target: window ? window() : undefined
+  });
+
+  return React.cloneElement(children, {
+    elevation: trigger ? 4 : 0
+  });
+}
+
+ElevationScroll.propTypes = {
+  children: PropTypes.element.isRequired,
+  /**
+   * Injected by the documentation to work in an iframe.
+   * You won't need it on your project.
+   */
+  window: PropTypes.func
+};
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -17,25 +51,43 @@ const useStyles = makeStyles(theme => ({
 
 const Header = props => {
   const classes = useStyles();
+
+  const { houses } = useContext(HouseContext);
+  const { setSelectedHouse, selectedHouse } = useContext(BoarderContext);
+
+  const handleChange = event => {
+    setSelectedHouse(event.target.value);
+  };
   return (
-    <div className={classes.root}>
-      <AppBar
-        position='static'
-        elevation={0}
-        color='secondary'
-        style={{ background: '#ffffff' }}>
-        <Toolbar>
-          <IconButton
-            edge='start'
-            className={classes.menuButton}
-            color='inherit'
-            aria-label='menu'>
-            <MenuIcon />
-          </IconButton>
-          {props.children}
-        </Toolbar>
-      </AppBar>
-    </div>
+    <Fragment>
+      <ElevationScroll {...props}>
+        <AppBar color='primary'>
+          <Toolbar>
+            <IconButton
+              edge='start'
+              className={classes.menuButton}
+              color='inherit'
+              aria-label='menu'>
+              <MenuIcon />
+            </IconButton>
+            <FormControl style={{ width: '200px', color: '#ffffff' }}>
+              <Select
+                id='select-house'
+                value={selectedHouse}
+                onChange={handleChange}
+                disableUnderline
+                style={{ color: 'white' }}>
+                {houses.map(house => (
+                  <MenuItem key={house.id} value={house.id}>
+                    {house.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Toolbar>
+        </AppBar>
+      </ElevationScroll>
+    </Fragment>
   );
 };
 

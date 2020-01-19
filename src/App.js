@@ -1,14 +1,15 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
 import Header from './components/layout/Header';
-import { Container } from '@material-ui/core';
+
+import { BrowserRouter, Route, Link, Switch } from 'react-router-dom';
 
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import { BoarderContext } from './contexts/BoarderContext';
 
-import { FormControl, Select, MenuItem } from '@material-ui/core';
 import House from './components/House';
-import { HouseContext } from './contexts/HouseContext';
+import HouseContextProvider from './contexts/HouseContext';
+import BoarderContextProvider from './contexts/BoarderContext';
+import Home from './components/layout/Home';
 
 const theme = createMuiTheme({
   palette: {
@@ -23,33 +24,21 @@ const theme = createMuiTheme({
 });
 
 function App() {
-  const { houses } = useContext(HouseContext);
-  const { setSelectedHouse, selectedHouse } = useContext(BoarderContext);
-
-  const handleChange = event => {
-    setSelectedHouse(event.target.value);
-  };
   return (
-    <MuiThemeProvider theme={theme}>
-      <Header>
-        <FormControl style={{ width: '200px' }}>
-          <Select
-            id='select-house'
-            value={selectedHouse}
-            onChange={handleChange}
-            disableUnderline>
-            {houses.map(house => (
-              <MenuItem key={house.id} value={house.id}>
-                {house.name}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </Header>
-      <Container style={{ margin: '1rem 0' }}>
-        <House />
-      </Container>
-    </MuiThemeProvider>
+    <BrowserRouter>
+      <MuiThemeProvider theme={theme}>
+        <HouseContextProvider>
+          <BoarderContextProvider>
+            <div>
+              <Switch>
+                <Route exact path='/' component={Home} />
+                <Route exact path='/:id' component={House} />
+              </Switch>
+            </div>
+          </BoarderContextProvider>
+        </HouseContextProvider>
+      </MuiThemeProvider>
+    </BrowserRouter>
   );
 }
 

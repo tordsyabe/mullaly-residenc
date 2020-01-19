@@ -4,11 +4,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { Divider, Grid, Grow } from '@material-ui/core';
+import { Divider, Grid, Grow, Fab } from '@material-ui/core';
 
 import RemoveCircleOutlineRoundedIcon from '@material-ui/icons/RemoveCircleOutlineRounded';
+import EventBusyRoundedIcon from '@material-ui/icons/EventBusyRounded';
 
 import PreviousMonth from './PreviousMonth';
 import { formatDate } from '../utils/Utils';
@@ -19,6 +19,8 @@ import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
 import { red } from '@material-ui/core/colors';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
+import PaymentRoundedIcon from '@material-ui/icons/PaymentRounded';
 
 import DeleteDialog from './ui/DeleteDialog';
 
@@ -93,12 +95,20 @@ const Boarder = ({ boarder }) => {
     setOpenDeleteDialog(false);
   };
 
+  const boarderDues = boarder.dues.slice(-1)[0];
+  const dateToday = new Date();
+
   return (
     <Fragment>
       <Grow in={true} timeout={500}>
-        <Card className={classes.card}>
+        <Card className={classes.card} elevation={2}>
           <CardContent>
-            <Typography variant='h5'>{boarder.name}</Typography>
+            <Grid container justify='space-between'>
+              <Grid item>
+                <Typography variant='h5'>{boarder.name}</Typography>
+              </Grid>
+              <Grid item></Grid>
+            </Grid>
 
             <Typography variant='body2'>
               Room rate:{' '}
@@ -129,13 +139,30 @@ const Boarder = ({ boarder }) => {
           </CardContent>
           <CardActions style={{ position: 'relative' }}>
             {/* <Button size='small'>More Details</Button> */}
-            <Button
-              size='small'
-              variant='contained'
-              color='primary'
-              onClick={handleClickOpenPaymentDialog}>
-              Make Payment
-            </Button>
+            {dateToday > new Date(boarderDues.dueDate.seconds * 1000) ? (
+              <Fab
+                size='small'
+                variant='extended'
+                onClick={handleClickOpenPaymentDialog}
+                style={{ backgroundColor: 'red', color: '#fafafa' }}>
+                <EventBusyRoundedIcon
+                  fontSize='small'
+                  style={{ marginRight: '0.4rem' }}
+                />
+                Overdue
+              </Fab>
+            ) : (
+              <Fab
+                size='small'
+                variant='extended'
+                elevation={0}
+                color='primary'
+                onClick={handleClickOpenPaymentDialog}>
+                <PaymentRoundedIcon style={{ marginRight: '0.4rem' }} />
+                Make Payment
+              </Fab>
+            )}
+
             <IconButton
               className={clsx(classes.expand, {
                 [classes.expandOpen]: expanded

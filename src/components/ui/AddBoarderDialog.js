@@ -204,7 +204,12 @@ const AddBoarderDialog = ({ open, handleClose }) => {
             helperText='Please select an apartment'
             value={house}
             required
-            onChange={e => setHouse(e.target.value)}>
+            onChange={e => {
+              setHouse(e.target.value);
+            }}>
+            <MenuItem value=''>
+              <em>Select House</em>
+            </MenuItem>
             {houses.map(house => (
               <MenuItem key={house.id} value={house.id}>
                 {house.name}

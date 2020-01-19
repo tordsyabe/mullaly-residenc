@@ -6,7 +6,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   box-sizing: border-box;
-  background: #fafafa;
 }
 
 code {
@@ -16,4 +15,8 @@ code {
 
 #select-house:focus {
   background: none;
+}
+
+.MuiSelect-icon > path {
+  color: #ffffff;
 }
