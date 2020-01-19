@@ -12,8 +12,7 @@ import { BoarderContext } from '../../contexts/BoarderContext';
 
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 
-import PropTypes from 'prop-types';
-import CssBaseline from '@material-ui/core/CssBaseline';
+// import PropTypes from 'prop-types';
 
 function ElevationScroll(props) {
   const { children, window } = props;
@@ -31,14 +30,14 @@ function ElevationScroll(props) {
   });
 }
 
-ElevationScroll.propTypes = {
-  children: PropTypes.element.isRequired,
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  window: PropTypes.func
-};
+// ElevationScroll.propTypes = {
+//   children: PropTypes.element.isRequired,
+//   /**
+//    * Injected by the documentation to work in an iframe.
+//    * You won't need it on your project.
+//    */
+//   window: PropTypes.func
+// };
 
 const useStyles = makeStyles(theme => ({
   root: {

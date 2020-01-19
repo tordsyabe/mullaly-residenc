@@ -41,6 +41,7 @@ const Home = props => {
             height: '100%',
             right: 0
           }}
+          alt='residence'
         />
         <div
           style={{

@@ -13,7 +13,7 @@ const Routes = props => {
     <Switch>
       <Route exact path='/' component={Home} />
       {houses.map(house => (
-        <Route exact path={`/${house.id}`} component={House} />
+        <Route key={house.id} exact path={`/${house.id}`} component={House} />
       ))}
 
       <Route component={NotFound} />

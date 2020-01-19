@@ -3,8 +3,7 @@ import {
   Typography,
   Fade,
   Container,
-  CircularProgress,
-  Grid
+  CircularProgress
 } from '@material-ui/core';
 import Boarders from './Boarders';
 import { BoarderContext } from '../contexts/BoarderContext';
