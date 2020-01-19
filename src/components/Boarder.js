@@ -144,7 +144,7 @@ const Boarder = ({ boarder }) => {
                 size='small'
                 variant='extended'
                 onClick={handleClickOpenPaymentDialog}
-                style={{ backgroundColor: 'red', color: '#fafafa' }}>
+                color='secondary'>
                 <EventBusyRoundedIcon
                   fontSize='small'
                   style={{ marginRight: '0.4rem' }}

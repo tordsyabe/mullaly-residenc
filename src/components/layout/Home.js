@@ -16,6 +16,7 @@ import {
 } from '@material-ui/core';
 import { HouseContext } from '../../contexts/HouseContext';
 import { BoarderContext } from '../../contexts/BoarderContext';
+import OverDueBadge from '../ui/OverDueBadge';
 
 const Home = props => {
   const { houses } = useContext(HouseContext);
@@ -95,12 +96,22 @@ const Home = props => {
                         }}>
                         <CardContent
                           style={{
-                            padding: '1.2rem'
+                            padding: '1.2rem',
+                            position: 'relative',
+                            height: '100%'
                           }}>
                           <Typography variant='h6'>{house.name}</Typography>
                           <Typography variant='caption'>
                             Available Room: 2
                           </Typography>
+                          <div
+                            style={{
+                              position: 'absolute',
+                              right: '0.8rem',
+                              bottom: '0.8rem'
+                            }}>
+                            <OverDueBadge />
+                          </div>
                         </CardContent>
                       </Card>
                     </Link>
