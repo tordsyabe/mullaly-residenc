@@ -7,10 +7,13 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 
 import { HouseContext } from '../../contexts/HouseContext';
-import { FormControl, Select, MenuItem } from '@material-ui/core';
+import { FormControl, Select, MenuItem, Button } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import { BoarderContext } from '../../contexts/BoarderContext';
 
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
+
+import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
 
 // import PropTypes from 'prop-types';
 
@@ -45,6 +48,9 @@ const useStyles = makeStyles(theme => ({
   },
   menuButton: {
     marginRight: theme.spacing(2)
+  },
+  title: {
+    flexGrow: 1
   }
 }));
 
@@ -83,6 +89,18 @@ const Header = props => {
                 ))}
               </Select>
             </FormControl>
+            <Link
+              to='/'
+              style={{
+                color: 'inherit',
+                textDecoration: 'none',
+                position: 'absolute',
+                right: '1rem'
+              }}>
+              <IconButton color='inherit'>
+                <HomeRoundedIcon />
+              </IconButton>
+            </Link>
           </Toolbar>
         </AppBar>
       </ElevationScroll>
