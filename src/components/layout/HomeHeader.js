@@ -7,6 +7,9 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import Container from '@material-ui/core/Container';
 
+import logo from '../../assets/logo.png';
+import { Grid } from '@material-ui/core';
+
 function ElevationScroll(props) {
   const { children, window } = props;
   // Note that you normally won't need to set the window ref as useScrollTrigger
@@ -39,6 +42,12 @@ export default function HomeHeader(props) {
       <ElevationScroll {...props}>
         <AppBar>
           <Toolbar>
+            <img
+              src={logo}
+              width='45px'
+              alt='logo'
+              style={{ marginRight: '0.6rem' }}
+            />
             <Typography variant='h6'>Mullaly Residence</Typography>
           </Toolbar>
         </AppBar>
