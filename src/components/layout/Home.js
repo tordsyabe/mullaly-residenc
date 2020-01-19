@@ -20,8 +20,14 @@ import OverDueBadge from '../ui/OverDueBadge';
 
 const Home = props => {
   const { houses } = useContext(HouseContext);
+  const { setSelectedHouse, boarders } = useContext(BoarderContext);
 
-  const { setSelectedHouse } = useContext(BoarderContext);
+  //   const dueDateCount = boarders.map(boarder => {
+  //     const dateToday = new Date();
+  //     const borderDue = boarder.dues.slice(-1)[0];
+  //     return dateToday > borderDue.datePaid;
+  //   });
+  //   console.log(dueDateCount.date);
 
   return (
     <Fragment>
