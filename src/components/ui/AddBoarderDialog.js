@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -15,15 +15,27 @@ import {
   KeyboardDatePicker
 } from '@material-ui/pickers';
 import { MenuItem, Grid } from '@material-ui/core';
-import { HouseContext } from '../../contexts/HouseContext';
+import { saveBoarder } from '../../services/BoarderService';
+import { BoarderContext } from '../../contexts/BoarderContext';
 
 const AddBoarderDialog = ({ open, handleClose }) => {
-  const { houses } = useContext(HouseContext);
-
+  const { selectedHouse } = useContext(BoarderContext);
   const [dateJoined, setDateJoined] = useState(new Date());
+  useEffect(() => {
+    firebase
+      .firestore()
+      .collection('houses')
+      .doc(selectedHouse)
+      .get()
+      .then(doc => {
+        setRooms(doc.data().rooms);
+        console.log(doc.data());
+      });
+  }, [selectedHouse]);
 
-  const [house, setHouse] = useState('');
+  const [house, setHouse] = useState(selectedHouse);
   const [name, setName] = useState('');
+  const [rooms, setRooms] = useState([]);
   const [roomNumber, setRoomNumber] = useState('');
   const [roomRate, setRoomRate] = useState(0);
   const [typeOfRent, setTypeOfRent] = useState('');
@@ -47,59 +59,52 @@ const AddBoarderDialog = ({ open, handleClose }) => {
     const outstanding =
       parseInt(roomRate) + parseInt(utilities) + parseInt(balance);
 
-    firebase
-      .firestore()
-      .collection('boarders')
-      .add({
-        dateJoined,
-        name,
-        roomRate: parseInt(roomRate),
-        utilities: parseInt(utilities),
-        advancePayment: parseInt(advancePayment),
-        deposit: parseInt(deposit),
-        roomNumber,
-        typeOfRent,
-        house: firebase.firestore().doc(`houses/${house}`),
-        email,
-        mobileNumber,
-        permanentAddress,
-        dues: [
-          {
-            amountPaid,
-            balance,
-            datePaid: dateJoined,
-            dueDate: new Date(
-              new Date(dateJoined).setMonth(dateJoined.getMonth() + 1)
-            ),
-            isPaid: true,
-            isPartiallyPaid: parseInt(advancePayment) < parseInt(roomRate),
-            outstanding,
-            isUtilitiesPaid:
-              parseInt(utilities) ===
-              parseInt(advancePayment) -
-                parseInt(roomRate) +
-                parseInt(utilities)
-          }
-        ]
-      })
-      .then(() => {
-        handleClose();
-        setDateJoined('');
+    saveBoarder({
+      dateJoined,
+      name,
+      roomRate: parseInt(roomRate),
+      utilities: parseInt(utilities),
+      advancePayment: parseInt(advancePayment),
+      deposit: parseInt(deposit),
+      roomNumber,
+      typeOfRent,
+      house: firebase.firestore().doc(`houses/${house}`),
+      email,
+      mobileNumber,
+      permanentAddress,
+      dues: [
+        {
+          amountPaid,
+          balance,
+          datePaid: dateJoined,
+          dueDate: new Date(
+            new Date(dateJoined).setMonth(dateJoined.getMonth() + 1)
+          ),
+          isPaid: true,
+          isPartiallyPaid: parseInt(advancePayment) < parseInt(roomRate),
+          outstanding,
+          isUtilitiesPaid:
+            parseInt(utilities) ===
+            parseInt(advancePayment) - parseInt(roomRate) + parseInt(utilities)
+        }
+      ]
+    }).then(() => {
+      handleClose();
+      setDateJoined('');
 
-        setHouse('');
-        setName('');
-        setRoomNumber('');
-        setRoomRate('');
-        setTypeOfRent('');
-        setDeposit('');
-        setUtilities('');
-        setAdvancePayment('');
+      setHouse('');
+      setName('');
+      setRoomNumber('');
+      setRoomRate('');
+      setTypeOfRent('');
+      setDeposit('');
+      setUtilities('');
+      setAdvancePayment('');
 
-        setEmail('');
-        setPermanentAddress('');
-        setMobileNumber('');
-        console.log('payment success.');
-      });
+      setEmail('');
+      setPermanentAddress('');
+      setMobileNumber('');
+    });
   };
 
   return (
@@ -200,34 +205,18 @@ const AddBoarderDialog = ({ open, handleClose }) => {
             fullWidth
             variant='outlined'
             margin='dense'
-            label='Select'
-            helperText='Please select an apartment'
-            value={house}
+            label='Select room number'
+            value={roomNumber}
             required
             onChange={e => {
-              setHouse(e.target.value);
+              setRoomNumber(e.target.value);
             }}>
-            <MenuItem value=''>
-              <em>Select House</em>
-            </MenuItem>
-            {houses.map(house => (
-              <MenuItem key={house.id} value={house.id}>
-                {house.name}
+            {rooms.map(room => (
+              <MenuItem key={room.number} value={room.number}>
+                Room {room.number}
               </MenuItem>
             ))}
           </TextField>
-
-          <TextField
-            margin='dense'
-            id='roomNumber'
-            label='Room Number'
-            type='text'
-            fullWidth
-            variant='outlined'
-            required
-            value={roomNumber}
-            onChange={e => setRoomNumber(e.target.value)}
-          />
 
           <TextField
             margin='dense'

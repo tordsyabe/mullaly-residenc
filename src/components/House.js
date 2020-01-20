@@ -50,7 +50,7 @@ const House = props => {
         </div>
       </Fade>
       <div style={{ position: 'absolute', top: '12rem', width: '100%' }}>
-        <Container>
+        <Container maxWidth='lg'>
           <Boarders />
         </Container>
       </div>

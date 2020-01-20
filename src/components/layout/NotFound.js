@@ -1,12 +1,21 @@
-import React from 'react';
-import { Grid, Typography, Button, Container } from '@material-ui/core';
+import React, { useContext } from 'react';
+import {
+  Grid,
+  Typography,
+  Button,
+  Container,
+  CircularProgress
+} from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
 import notFound from '../../assets/not-found.svg';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { BoarderContext } from '../../contexts/BoarderContext';
 
 const NotFound = () => {
   const matches = useMediaQuery('(min-width:600px)');
+
+  const { isBoardersEmpty } = useContext(BoarderContext);
 
   return (
     <Container style={{ height: '100%' }}>

@@ -20,7 +20,7 @@ import OverDueBadge from '../ui/OverDueBadge';
 
 const Home = props => {
   const { houses } = useContext(HouseContext);
-  const { setSelectedHouse, boarders } = useContext(BoarderContext);
+  const { setSelectedHouse } = useContext(BoarderContext);
 
   //   const dueDateCount = boarders.map(boarder => {
   //     const dateToday = new Date();
@@ -91,7 +91,7 @@ const Home = props => {
                 {houses.map(house => (
                   <Grid item xs={12} md={4} lg={4} key={house.id}>
                     <Link
-                      to={`/${house.id}`}
+                      to={`/${house.name}`}
                       style={{ textDecoration: 'none' }}>
                       <Card
                         onClick={() => setSelectedHouse(house.id)}

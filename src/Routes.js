@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, Fragment } from 'react';
 
 import { Switch, Route } from 'react-router-dom';
 import { HouseContext } from './contexts/HouseContext';
@@ -10,14 +10,21 @@ const Routes = props => {
   const { houses } = useContext(HouseContext);
 
   return (
-    <Switch>
-      <Route exact path='/' component={Home} />
-      {houses.map(house => (
-        <Route key={house.id} exact path={`/${house.id}`} component={House} />
-      ))}
+    <Fragment>
+      <Switch>
+        <Route exact path='/' component={Home} />
+        {houses.map(house => (
+          <Route
+            key={house.id}
+            exact
+            path={`/${house.name}`}
+            component={House}
+          />
+        ))}
 
-      <Route component={NotFound} />
-    </Switch>
+        <Route component={NotFound} />
+      </Switch>
+    </Fragment>
   );
 };
 
