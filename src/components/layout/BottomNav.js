@@ -21,7 +21,6 @@ const useStyles = makeStyles({
 });
 
 export default function BottomNav() {
-  const { handleClickOpenBoarderDialog } = useContext(AddBoarderContext);
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -55,8 +54,11 @@ export default function BottomNav() {
 
       <BottomNavigationAction
         label='Add Boarder'
-        icon={<PersonAddRoundedIcon />}
-        onClick={handleClickOpenBoarderDialog}
+        icon={
+          <Link to='/boarding-house/add-boarder' style={{ color: 'inherit' }}>
+            <PersonAddRoundedIcon />
+          </Link>
+        }
       />
     </BottomNavigation>
   );

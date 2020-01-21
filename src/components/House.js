@@ -13,10 +13,35 @@ import AddBoarderContextProvider from '../contexts/AddBoarderContext';
 import HouseBills from './HouseBills';
 
 import { Route, Switch, useLocation, useParams } from 'react-router-dom';
+import AddBoarder from './AddBoarder';
+import NotFound from './layout/NotFound';
 
 const House = props => {
   const { house, isBoardersEmpty } = useContext(BoarderContext);
   const location = useLocation();
+
+  console.log(location.pathname);
+
+  const headerTitle = location => {
+    // if (location.pathname === '/boarding-house') {
+    //   return 'Boarders';
+    // } else if (location.pathname === '/boarding-house/bills') {
+    //   return 'House Bills';
+    // } else if (location.pathname === '/boarding-house/add-boarder') {
+    //   return 'Add Boarder';
+    // }
+
+    switch (location.pathname) {
+      case '/boarding-house':
+        return 'Boarders';
+      case '/boarding-house/bills':
+        return 'House Bills';
+      case '/boarding-house/add-boarder':
+        return 'Add Boarder';
+      default:
+        return 'Boarders';
+    }
+  };
 
   if (isBoardersEmpty) {
     return (
@@ -49,11 +74,7 @@ const House = props => {
             height: '250px'
           }}>
           <Container style={{ marginTop: '4rem' }}>
-            <Typography variant='h4'>
-              {location.pathname === '/boarding-house'
-                ? 'Boarders'
-                : 'House Bills'}
-            </Typography>
+            <Typography variant='h4'>{headerTitle(location)}</Typography>
             <br />
             <Typography variant='caption'>{house.address}</Typography>
           </Container>
@@ -75,6 +96,12 @@ const House = props => {
                 path={`/boarding-house/bills`}
                 component={HouseBills}
               />
+              <Route
+                exact
+                path={`/boarding-house/add-boarder`}
+                component={AddBoarder}
+              />
+              <Route component={NotFound} />
             </Switch>
           </Container>
         </div>
