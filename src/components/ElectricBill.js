@@ -61,13 +61,22 @@ const ElectricBill = props => {
         <Card className={classes.card} elevation={2}>
           <CardContent>
             <Grid container justify='space-between'>
-              <Grid item>
+              <Grid item xs={12}>
                 <Typography variant='h5'>Electric Bill</Typography>
+                <br />
               </Grid>
-              <Grid item></Grid>
+
+              <Grid item xs={12}>
+                <Typography variant='body2'>
+                  Due Date : January 12, 2020
+                </Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <Typography variant='body2'>Amount : 1,200.00</Typography>
+              </Grid>
             </Grid>
           </CardContent>
-          <CardActions style={{ position: 'relative' }}>
+          <CardActions style={{ position: 'relative', marginBottom: '1rem' }}>
             <IconButton
               className={clsx(classes.expand, {
                 [classes.expandOpen]: expanded

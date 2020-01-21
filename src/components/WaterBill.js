@@ -63,7 +63,9 @@ const WaterBill = props => {
             <Grid container justify='space-between'>
               <Grid item xs={12}>
                 <Typography variant='h5'>Water Bill</Typography>
+                <br />
               </Grid>
+
               <Grid item xs={12}>
                 <Typography variant='body2'>
                   Due Date : January 12, 2020

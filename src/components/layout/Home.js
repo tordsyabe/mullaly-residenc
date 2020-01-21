@@ -21,7 +21,6 @@ import OverDueBadge from '../ui/OverDueBadge';
 const Home = props => {
   const { houses } = useContext(HouseContext);
   const { setSelectedHouse } = useContext(BoarderContext);
-  // houses.forEach(house => {});
 
   return (
     <Fragment>
@@ -110,7 +109,7 @@ const Home = props => {
                               right: '0.8rem',
                               bottom: '0.8rem'
                             }}>
-                            <OverDueBadge />
+                            <OverDueBadge boarders={house.boarders} />
                           </div>
                         </CardContent>
                       </Card>
