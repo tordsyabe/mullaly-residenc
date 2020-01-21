@@ -10,9 +10,13 @@ import { BoarderContext } from '../contexts/BoarderContext';
 import Header from './layout/Header';
 import BottomNav from './layout/BottomNav';
 import AddBoarderContextProvider from '../contexts/AddBoarderContext';
+import HouseBills from './HouseBills';
+
+import { Route, Switch, useLocation, useParams } from 'react-router-dom';
 
 const House = props => {
   const { house, isBoardersEmpty } = useContext(BoarderContext);
+  const location = useLocation();
 
   if (isBoardersEmpty) {
     return (
@@ -45,7 +49,11 @@ const House = props => {
             height: '250px'
           }}>
           <Container style={{ marginTop: '4rem' }}>
-            <Typography variant='h4'>Boarders</Typography>
+            <Typography variant='h4'>
+              {location.pathname === '/boarding-house'
+                ? 'Boarders'
+                : 'House Bills'}
+            </Typography>
             <br />
             <Typography variant='caption'>{house.address}</Typography>
           </Container>
@@ -60,7 +68,14 @@ const House = props => {
             marginBottom: '4.5rem'
           }}>
           <Container maxWidth='lg'>
-            <Boarders />
+            <Switch>
+              <Route exact path='/boarding-house' component={Boarders} />
+              <Route
+                exact
+                path={`/boarding-house/bills`}
+                component={HouseBills}
+              />
+            </Switch>
           </Container>
         </div>
         <BottomNav />

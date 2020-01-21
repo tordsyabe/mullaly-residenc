@@ -21,9 +21,7 @@ import OverDueBadge from '../ui/OverDueBadge';
 const Home = props => {
   const { houses } = useContext(HouseContext);
   const { setSelectedHouse } = useContext(BoarderContext);
-  houses.forEach(house => {
-    console.log(house);
-  });
+  // houses.forEach(house => {});
 
   return (
     <Fragment>
@@ -87,7 +85,7 @@ const Home = props => {
                 {houses.map(house => (
                   <Grid item xs={12} md={4} lg={4} key={house.id}>
                     <Link
-                      to={`/${house.name}`}
+                      to='/boarding-house'
                       style={{ textDecoration: 'none' }}>
                       <Card
                         onClick={() => setSelectedHouse(house.id)}

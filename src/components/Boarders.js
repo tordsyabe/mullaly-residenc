@@ -4,14 +4,12 @@ import Boarder from './Boarder';
 import { BoarderContext } from '../contexts/BoarderContext';
 import {
   Typography,
-  Fab,
   Grid,
   CircularProgress,
   Card,
   CardContent,
   Container,
-  Grow,
-  IconButton
+  Grow
 } from '@material-ui/core';
 import AddBoarderDialog from './ui/AddBoarderDialog';
 
@@ -81,19 +79,6 @@ const Boarders = props => {
   return (
     <Fragment>
       <Grid container spacing={2}>
-        {/* <Fab
-          onClick={handleClickOpen}
-          color='primary'
-          style={{
-            position: 'absolute',
-            zIndex: 2,
-            top: -30,
-            left: 0,
-            right: 0,
-            margin: '0 auto'
-          }}>
-          <AddIcon fontSize='large' />
-        </Fab> */}
         {boarders.map(boarder => (
           <Grid key={boarder.id} item xs={12} lg={4} md={6}>
             <Boarder boarder={boarder} />

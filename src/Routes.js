@@ -5,6 +5,7 @@ import { HouseContext } from './contexts/HouseContext';
 import Home from './components/layout/Home';
 import House from './components/House';
 import NotFound from './components/layout/NotFound';
+import HouseBills from './components/HouseBills';
 
 const Routes = props => {
   const { houses } = useContext(HouseContext);
@@ -13,15 +14,7 @@ const Routes = props => {
     <Fragment>
       <Switch>
         <Route exact path='/' component={Home} />
-        {houses.map(house => (
-          <Route
-            key={house.id}
-            exact
-            path={`/${house.name}`}
-            component={House}
-          />
-        ))}
-
+        <Route path={`/boarding-house`} component={House} />
         <Route component={NotFound} />
       </Switch>
     </Fragment>
