@@ -292,7 +292,12 @@ const AddBoarder = props => {
             />
           </CardContent>
           <CardActions>
-            <Button type='submit' color='primary' disabled={isSavingBoarder}>
+            <Button
+              fullWidth
+              variant='contained'
+              type='submit'
+              color='primary'
+              disabled={isSavingBoarder}>
               Save
             </Button>
           </CardActions>
