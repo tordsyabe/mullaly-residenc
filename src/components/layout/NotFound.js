@@ -17,6 +17,24 @@ const NotFound = () => {
 
   const { isBoardersEmpty } = useContext(BoarderContext);
 
+  if (isBoardersEmpty) {
+    return (
+      <div
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}>
+        <CircularProgress />
+      </div>
+    );
+  }
+
   return (
     <Container style={{ height: '100%' }}>
       <Grid

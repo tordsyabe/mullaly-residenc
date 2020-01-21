@@ -14,12 +14,14 @@ import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker
 } from '@material-ui/pickers';
-import { MenuItem, Grid } from '@material-ui/core';
+import { MenuItem, Grid, DialogContentText } from '@material-ui/core';
 import { saveBoarder } from '../../services/BoarderService';
 import { BoarderContext } from '../../contexts/BoarderContext';
 
 const AddBoarderDialog = ({ open, handleClose }) => {
   const { selectedHouse } = useContext(BoarderContext);
+
+  const [isSavingBoarder, setIsSavingBoarder] = useState(false);
   const [dateJoined, setDateJoined] = useState(new Date());
   useEffect(() => {
     firebase
@@ -29,11 +31,12 @@ const AddBoarderDialog = ({ open, handleClose }) => {
       .get()
       .then(doc => {
         setRooms(doc.data().rooms);
-        console.log(doc.data());
+        setHouse(doc.data());
       });
-  }, [selectedHouse]);
+  }, []);
 
-  const [house, setHouse] = useState(selectedHouse);
+  const [house, setHouse] = useState({});
+  const [houseId, setHouseId] = useState(selectedHouse);
   const [name, setName] = useState('');
   const [rooms, setRooms] = useState([]);
   const [roomNumber, setRoomNumber] = useState('');
@@ -53,6 +56,7 @@ const AddBoarderDialog = ({ open, handleClose }) => {
 
   const handleSaveBoarder = e => {
     e.preventDefault();
+    setIsSavingBoarder(true);
 
     const amountPaid = parseInt(advancePayment);
     const balance = parseInt(roomRate) - parseInt(advancePayment);
@@ -68,7 +72,7 @@ const AddBoarderDialog = ({ open, handleClose }) => {
       deposit: parseInt(deposit),
       roomNumber,
       typeOfRent,
-      house: firebase.firestore().doc(`houses/${house}`),
+      house: firebase.firestore().doc(`houses/${houseId}`),
       email,
       mobileNumber,
       permanentAddress,
@@ -88,22 +92,36 @@ const AddBoarderDialog = ({ open, handleClose }) => {
             parseInt(advancePayment) - parseInt(roomRate) + parseInt(utilities)
         }
       ]
-    }).then(() => {
-      handleClose();
-      setDateJoined('');
+    }).then(docRef => {
+      firebase
+        .firestore()
+        .collection('houses')
+        .doc(houseId)
+        .update({
+          boarders: firebase.firestore.FieldValue.arrayUnion(
+            firebase.firestore().doc(`boarders/${docRef.id}`)
+          )
+        })
+        .then(() => {
+          handleClose();
+          setDateJoined('');
 
-      setHouse('');
-      setName('');
-      setRoomNumber('');
-      setRoomRate('');
-      setTypeOfRent('');
-      setDeposit('');
-      setUtilities('');
-      setAdvancePayment('');
+          setHouseId('');
+          setName('');
+          setRoomNumber('');
+          setRoomRate('');
+          setTypeOfRent('');
+          setDeposit('');
+          setUtilities('');
+          setAdvancePayment('');
 
-      setEmail('');
-      setPermanentAddress('');
-      setMobileNumber('');
+          setEmail('');
+          setPermanentAddress('');
+          setMobileNumber('');
+          setIsSavingBoarder(false);
+        });
+
+      console.log(docRef.id);
     });
   };
 
@@ -115,9 +133,12 @@ const AddBoarderDialog = ({ open, handleClose }) => {
       <DialogTitle id='form-dialog-title'>Add Boarder</DialogTitle>
       <form onSubmit={handleSaveBoarder}>
         <DialogContent>
-          {/* <DialogContentText>
-            Please provide the following details for the new boarder.
-          </DialogContentText> */}
+          <DialogContentText>
+            Add details for new boarder of {house.name}.
+          </DialogContentText>
+          <DialogContentText>
+            Add details for new boarder of {house.name}.
+          </DialogContentText>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <KeyboardDatePicker
               disableToolbar
@@ -267,7 +288,7 @@ const AddBoarderDialog = ({ open, handleClose }) => {
           <Button onClick={handleClose} color='primary'>
             Cancel
           </Button>
-          <Button type='submit' color='primary'>
+          <Button type='submit' color='primary' disabled={isSavingBoarder}>
             Save
           </Button>
         </DialogActions>

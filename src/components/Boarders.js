@@ -10,24 +10,21 @@ import {
   Card,
   CardContent,
   Container,
-  Grow
+  Grow,
+  IconButton
 } from '@material-ui/core';
 import AddBoarderDialog from './ui/AddBoarderDialog';
 
 import AddIcon from '@material-ui/icons/Add';
+import { AddBoarderContext } from '../contexts/AddBoarderContext';
 
 const Boarders = props => {
   const { boarders, isBoardersEmpty } = useContext(BoarderContext);
-
-  const [open, setOpen] = useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const {
+    handleCloseBoarderDialog,
+    openAddBoarderDialog,
+    handleClickOpenBoarderDialog
+  } = useContext(AddBoarderContext);
 
   if (isBoardersEmpty) {
     return (
@@ -52,7 +49,7 @@ const Boarders = props => {
               <Grid item xs={12} md={4} lg={4}>
                 <Card
                   style={{ width: '100%', height: '208px', cursor: 'pointer' }}
-                  onClick={handleClickOpen}>
+                  onClick={handleClickOpenBoarderDialog}>
                   <CardContent
                     style={{
                       display: 'flex',
@@ -73,7 +70,10 @@ const Boarders = props => {
             </Grid>
           </Grow>
         </Container>
-        <AddBoarderDialog handleClose={handleClose} open={open} />
+        <AddBoarderDialog
+          handleClose={handleCloseBoarderDialog}
+          open={openAddBoarderDialog}
+        />
       </Fragment>
     );
   }
@@ -81,24 +81,30 @@ const Boarders = props => {
   return (
     <Fragment>
       <Grid container spacing={2}>
+        {/* <Fab
+          onClick={handleClickOpen}
+          color='primary'
+          style={{
+            position: 'absolute',
+            zIndex: 2,
+            top: -30,
+            left: 0,
+            right: 0,
+            margin: '0 auto'
+          }}>
+          <AddIcon fontSize='large' />
+        </Fab> */}
         {boarders.map(boarder => (
           <Grid key={boarder.id} item xs={12} lg={4} md={6}>
             <Boarder boarder={boarder} />
           </Grid>
         ))}
       </Grid>
-      <Fab
-        onClick={handleClickOpen}
-        color='primary'
-        style={{
-          position: 'fixed',
-          bottom: '1rem',
-          right: '1rem',
-          zIndex: '2'
-        }}>
-        <AddIcon />
-      </Fab>
-      <AddBoarderDialog handleClose={handleClose} open={open} />
+
+      <AddBoarderDialog
+        handleClose={handleCloseBoarderDialog}
+        open={openAddBoarderDialog}
+      />
     </Fragment>
   );
 };

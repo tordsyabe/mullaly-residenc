@@ -8,6 +8,8 @@ import {
 import Boarders from './Boarders';
 import { BoarderContext } from '../contexts/BoarderContext';
 import Header from './layout/Header';
+import BottomNav from './layout/BottomNav';
+import AddBoarderContextProvider from '../contexts/AddBoarderContext';
 
 const House = props => {
   const { house, isBoardersEmpty } = useContext(BoarderContext);
@@ -49,11 +51,20 @@ const House = props => {
           </Container>
         </div>
       </Fade>
-      <div style={{ position: 'absolute', top: '12rem', width: '100%' }}>
-        <Container maxWidth='lg'>
-          <Boarders />
-        </Container>
-      </div>
+      <AddBoarderContextProvider>
+        <div
+          style={{
+            position: 'absolute',
+            top: '12rem',
+            width: '100%',
+            marginBottom: '4.5rem'
+          }}>
+          <Container maxWidth='lg'>
+            <Boarders />
+          </Container>
+        </div>
+        <BottomNav />
+      </AddBoarderContextProvider>
     </Fragment>
   );
 };
