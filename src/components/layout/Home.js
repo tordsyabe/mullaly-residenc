@@ -29,17 +29,16 @@ const Home = props => {
         style={{
           width: '100%',
           height: '250px',
-          position: 'relative',
-          backgroundColor: '#1976d2'
+          backgroundColor: '#1976d2',
+          display: 'flex',
+          justifyContent: 'flex-end'
         }}>
         <img
           src={residence}
           style={{
-            objectFit: 'fill',
-            position: 'absolute',
-            width: '50%',
+            objectFit: 'cover',
             height: '100%',
-            right: 0
+            paddingRight: '1rem'
           }}
           alt='residence'
         />
