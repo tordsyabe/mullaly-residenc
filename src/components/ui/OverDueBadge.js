@@ -21,21 +21,23 @@ export default function OverDueBadge({ boarders }) {
 
   useEffect(() => {
     let count = 0;
-    boarders.forEach(boarder => {
-      firebase
-        .firestore()
-        .collection('boarders')
-        .doc(boarder.id)
-        .get()
-        .then(doc => {
-          const dateToday = new Date();
-          const boarderDue = doc.data().dues.slice(-1)[0];
-          if (dateToday > new Date(boarderDue.dueDate.seconds * 1000)) {
-            count++;
-          }
-          setOverDuesCount(count);
-        });
-    });
+    if (!!boarders) {
+      boarders.forEach(boarder => {
+        firebase
+          .firestore()
+          .collection('boarders')
+          .doc(boarder.id)
+          .get()
+          .then(doc => {
+            const dateToday = new Date();
+            const boarderDue = doc.data().dues.slice(-1)[0];
+            if (dateToday > new Date(boarderDue.dueDate.seconds * 1000)) {
+              count++;
+            }
+            setOverDuesCount(count);
+          });
+      });
+    }
   }, []);
 
   return (

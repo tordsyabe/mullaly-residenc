@@ -7,7 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 
 import { HouseContext } from '../../contexts/HouseContext';
-import { FormControl, Select, MenuItem, Button, Grid } from '@material-ui/core';
+import { FormControl, Select, MenuItem, Grid } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { BoarderContext } from '../../contexts/BoarderContext';
 
@@ -32,15 +32,6 @@ function ElevationScroll(props) {
     elevation: trigger ? 4 : 0
   });
 }
-
-// ElevationScroll.propTypes = {
-//   children: PropTypes.element.isRequired,
-//   /**
-//    * Injected by the documentation to work in an iframe.
-//    * You won't need it on your project.
-//    */
-//   window: PropTypes.func
-// };
 
 const useStyles = makeStyles(theme => ({
   root: {

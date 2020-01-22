@@ -1,6 +1,8 @@
-import React, { useContext, Fragment, useState } from 'react';
+import React, { useContext, Fragment } from 'react';
 
 import Boarder from './Boarder';
+
+import { Link } from 'react-router-dom';
 import { BoarderContext } from '../contexts/BoarderContext';
 import {
   Typography,
@@ -11,18 +13,11 @@ import {
   Container,
   Grow
 } from '@material-ui/core';
-import AddBoarderDialog from './ui/AddBoarderDialog';
 
 import AddIcon from '@material-ui/icons/Add';
-import { AddBoarderContext } from '../contexts/AddBoarderContext';
 
 const Boarders = props => {
   const { boarders, isBoardersEmpty } = useContext(BoarderContext);
-  const {
-    handleCloseBoarderDialog,
-    openAddBoarderDialog,
-    handleClickOpenBoarderDialog
-  } = useContext(AddBoarderContext);
 
   if (isBoardersEmpty) {
     return (
@@ -45,33 +40,36 @@ const Boarders = props => {
           <Grow in={true} timeout={500}>
             <Grid container justify='center' spacing={2}>
               <Grid item xs={12} md={4} lg={4}>
-                <Card
-                  style={{ width: '100%', height: '208px', cursor: 'pointer' }}
-                  onClick={handleClickOpenBoarderDialog}>
-                  <CardContent
+                <Link
+                  to='/boarding-house/add-boarder'
+                  style={{ textDecoration: 'none' }}>
+                  <Card
                     style={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      textAlign: 'center',
-                      height: '100%'
+                      width: '100%',
+                      height: '208px',
+                      cursor: 'pointer'
                     }}>
-                    <AddIcon fontSize='large' color='primary' />
-                    <br />
-                    <Typography color='primary' variant='subtitle2'>
-                      Add Boarding boarder
-                    </Typography>
-                  </CardContent>
-                </Card>
+                    <CardContent
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        textAlign: 'center',
+                        height: '100%'
+                      }}>
+                      <AddIcon fontSize='large' color='primary' />
+                      <br />
+                      <Typography color='primary' variant='subtitle2'>
+                        Add Boarding boarder
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Link>
               </Grid>
             </Grid>
           </Grow>
         </Container>
-        <AddBoarderDialog
-          handleClose={handleCloseBoarderDialog}
-          open={openAddBoarderDialog}
-        />
       </Fragment>
     );
   }
@@ -85,11 +83,6 @@ const Boarders = props => {
           </Grid>
         ))}
       </Grid>
-
-      <AddBoarderDialog
-        handleClose={handleCloseBoarderDialog}
-        open={openAddBoarderDialog}
-      />
     </Fragment>
   );
 };

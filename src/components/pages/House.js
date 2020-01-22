@@ -5,16 +5,15 @@ import {
   Container,
   CircularProgress
 } from '@material-ui/core';
-import Boarders from './Boarders';
-import { BoarderContext } from '../contexts/BoarderContext';
-import Header from './layout/Header';
-import BottomNav from './layout/BottomNav';
-import AddBoarderContextProvider from '../contexts/AddBoarderContext';
-import HouseBills from './HouseBills';
+import Boarders from '../Boarders';
+import { BoarderContext } from '../../contexts/BoarderContext';
+import Header from '../layout/Header';
+import BottomNav from '../layout/BottomNav';
+import HouseBills from '../HouseBills';
 
-import { Route, Switch, useLocation, useParams } from 'react-router-dom';
-import AddBoarder from './AddBoarder';
-import NotFound from './layout/NotFound';
+import { Route, Switch, useLocation } from 'react-router-dom';
+import AddBoarder from '../AddBoarder';
+import NotFound from '../layout/NotFound';
 
 const House = props => {
   const { house, isBoardersEmpty } = useContext(BoarderContext);
@@ -70,33 +69,31 @@ const House = props => {
           </Container>
         </div>
       </Fade>
-      <AddBoarderContextProvider>
-        <div
-          style={{
-            position: 'absolute',
-            top: '12rem',
-            width: '100%',
-            marginBottom: '4.5rem'
-          }}>
-          <Container maxWidth='lg'>
-            <Switch>
-              <Route exact path='/boarding-house' component={Boarders} />
-              <Route
-                exact
-                path={`/boarding-house/bills`}
-                component={HouseBills}
-              />
-              <Route
-                exact
-                path={`/boarding-house/add-boarder`}
-                component={AddBoarder}
-              />
-              <Route component={NotFound} />
-            </Switch>
-          </Container>
-        </div>
-        <BottomNav />
-      </AddBoarderContextProvider>
+      <div
+        style={{
+          position: 'absolute',
+          top: '12rem',
+          width: '100%',
+          marginBottom: '4.5rem'
+        }}>
+        <Container maxWidth='lg'>
+          <Switch>
+            <Route exact path='/boarding-house' component={Boarders} />
+            <Route
+              exact
+              path={`/boarding-house/bills`}
+              component={HouseBills}
+            />
+            <Route
+              exact
+              path={`/boarding-house/add-boarder`}
+              component={AddBoarder}
+            />
+            <Route component={NotFound} />
+          </Switch>
+        </Container>
+      </div>
+      <BottomNav />
     </Fragment>
   );
 };

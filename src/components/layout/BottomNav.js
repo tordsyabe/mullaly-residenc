@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
@@ -8,7 +8,6 @@ import PersonRoundedIcon from '@material-ui/icons/PersonRounded';
 import DescriptionRoundedIcon from '@material-ui/icons/DescriptionRounded';
 
 import { Link } from 'react-router-dom';
-import { BoarderContext } from '../../contexts/BoarderContext';
 
 const useStyles = makeStyles({
   root: {

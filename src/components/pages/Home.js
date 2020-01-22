@@ -1,5 +1,5 @@
 import React, { Fragment, useContext } from 'react';
-import HomeHeader from './HomeHeader';
+import HomeHeader from '../layout/HomeHeader';
 
 import AddIcon from '@material-ui/icons/Add';
 

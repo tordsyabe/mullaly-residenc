@@ -50,7 +50,7 @@ const AddBoarder = props => {
         setRooms(doc.data().rooms);
         setHouse(doc.data());
       });
-  }, []);
+  }, [selectedHouse]);
 
   const [house, setHouse] = useState({});
   const [houseId, setHouseId] = useState(selectedHouse);

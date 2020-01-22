@@ -1,14 +1,11 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
-import Container from '@material-ui/core/Container';
 
 import logo from '../../assets/logo.png';
-import { Grid } from '@material-ui/core';
 
 function ElevationScroll(props) {
   const { children, window } = props;
@@ -25,15 +22,6 @@ function ElevationScroll(props) {
     elevation: trigger ? 4 : 0
   });
 }
-
-// ElevationScroll.propTypes = {
-//   children: PropTypes.element.isRequired,
-//   /**
-//    * Injected by the documentation to work in an iframe.
-//    * You won't need it on your project.
-//    */
-//   window: PropTypes.func
-// };
 
 export default function HomeHeader(props) {
   return (
@@ -52,8 +40,6 @@ export default function HomeHeader(props) {
           </Toolbar>
         </AppBar>
       </ElevationScroll>
-      <Toolbar />
-      <Container></Container>
     </React.Fragment>
   );
 }
