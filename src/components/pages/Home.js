@@ -30,10 +30,11 @@ const Home = props => {
           width: '100%',
           height: '250px',
           backgroundColor: '#1976d2',
+          padding: '4rem 0',
           display: 'flex',
           justifyContent: 'flex-end'
         }}>
-        <img
+        {/* <img
           src={residence}
           style={{
             objectFit: 'cover',
@@ -41,7 +42,7 @@ const Home = props => {
             paddingRight: '1rem'
           }}
           alt='residence'
-        />
+        /> */}
         <div
           style={{
             position: 'absolute',

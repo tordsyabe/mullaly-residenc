@@ -56,13 +56,12 @@ const House = props => {
       <Fade in={true} timeout={500}>
         <div
           style={{
-            marginBottom: '1rem',
             backgroundColor: '#1976d2',
-            padding: '1rem 0',
+            padding: '4rem 0',
             color: '#ffffff',
             height: '250px'
           }}>
-          <Container style={{ marginTop: '4rem' }}>
+          <Container>
             <Typography variant='h4'>{headerTitle(location)}</Typography>
             <br />
             <Typography variant='caption'>{house.address}</Typography>
