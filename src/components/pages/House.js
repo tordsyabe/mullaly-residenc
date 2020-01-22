@@ -15,6 +15,8 @@ import { Route, Switch, useLocation } from 'react-router-dom';
 import AddBoarder from '../AddBoarder';
 import NotFound from '../layout/NotFound';
 
+import bg from '../../assets/bg.png';
+
 const House = props => {
   const { house, isBoardersEmpty } = useContext(BoarderContext);
   const location = useLocation();
@@ -57,9 +59,11 @@ const House = props => {
         <div
           style={{
             backgroundColor: '#1976d2',
-            padding: '4rem 0',
+            padding: '5rem 0',
             color: '#ffffff',
-            height: '250px'
+            height: '250px',
+            background: `url(${bg}) no-repeat`,
+            backgroundSize: 'cover'
           }}>
           <Container>
             <Typography variant='h4'>{headerTitle(location)}</Typography>

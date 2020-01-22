@@ -18,6 +18,8 @@ import { HouseContext } from '../../contexts/HouseContext';
 import { BoarderContext } from '../../contexts/BoarderContext';
 import OverDueBadge from '../ui/OverDueBadge';
 
+import bg from '../../assets/bg.png';
+
 const Home = props => {
   const { houses } = useContext(HouseContext);
   const { setSelectedHouse } = useContext(BoarderContext);
@@ -28,11 +30,13 @@ const Home = props => {
       <div
         style={{
           width: '100%',
-          height: '250px',
           backgroundColor: '#1976d2',
-          padding: '4rem 0',
+          padding: '5rem 0',
           display: 'flex',
-          justifyContent: 'flex-end'
+          justifyContent: 'flex-end',
+          height: '250px',
+          background: `url(${bg}) no-repeat`,
+          backgroundSize: 'cover'
         }}>
         {/* <img
           src={residence}
