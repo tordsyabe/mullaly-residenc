@@ -7,7 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 
 import { HouseContext } from '../../contexts/HouseContext';
-import { FormControl, Select, MenuItem, Button } from '@material-ui/core';
+import { FormControl, Select, MenuItem, Button, Grid } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { BoarderContext } from '../../contexts/BoarderContext';
 
@@ -66,41 +66,47 @@ const Header = props => {
   return (
     <Fragment>
       <ElevationScroll {...props}>
-        <AppBar color='primary'>
+        <AppBar>
           <Toolbar>
-            <IconButton
-              edge='start'
-              className={classes.menuButton}
-              color='inherit'
-              aria-label='menu'>
-              <MenuIcon />
-            </IconButton>
-            <FormControl style={{ width: '200px', color: '#ffffff' }}>
-              <Select
-                id='select-house'
-                value={selectedHouse}
-                onChange={handleChange}
-                disableUnderline
-                style={{ color: 'white' }}>
-                {houses.map(house => (
-                  <MenuItem key={house.id} value={house.id}>
-                    {house.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-            <Link
-              to='/'
-              style={{
-                color: 'inherit',
-                textDecoration: 'none',
-                position: 'absolute',
-                right: '1rem'
-              }}>
-              <IconButton color='inherit'>
-                <HomeRoundedIcon />
-              </IconButton>
-            </Link>
+            <Grid container justify='space-between'>
+              <Grid item>
+                <Grid container alignItems='center'>
+                  <IconButton
+                    edge='start'
+                    className={classes.menuButton}
+                    color='inherit'
+                    aria-label='menu'>
+                    <MenuIcon />
+                  </IconButton>
+                  <FormControl style={{ width: '200px', color: '#ffffff' }}>
+                    <Select
+                      id='select-house'
+                      value={selectedHouse}
+                      onChange={handleChange}
+                      disableUnderline
+                      style={{ color: 'white' }}>
+                      {houses.map(house => (
+                        <MenuItem key={house.id} value={house.id}>
+                          {house.name}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </Grid>
+              </Grid>
+              <Grid item>
+                <Link
+                  to='/'
+                  style={{
+                    color: 'inherit',
+                    textDecoration: 'none'
+                  }}>
+                  <IconButton color='inherit'>
+                    <HomeRoundedIcon />
+                  </IconButton>
+                </Link>
+              </Grid>
+            </Grid>
           </Toolbar>
         </AppBar>
       </ElevationScroll>

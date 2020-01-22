@@ -20,17 +20,7 @@ const House = props => {
   const { house, isBoardersEmpty } = useContext(BoarderContext);
   const location = useLocation();
 
-  console.log(location.pathname);
-
   const headerTitle = location => {
-    // if (location.pathname === '/boarding-house') {
-    //   return 'Boarders';
-    // } else if (location.pathname === '/boarding-house/bills') {
-    //   return 'House Bills';
-    // } else if (location.pathname === '/boarding-house/add-boarder') {
-    //   return 'Add Boarder';
-    // }
-
     switch (location.pathname) {
       case '/boarding-house':
         return 'Boarders';

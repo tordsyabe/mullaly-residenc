@@ -3,8 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 
-import { AddBoarderContext } from '../../contexts/AddBoarderContext';
-
 import PersonAddRoundedIcon from '@material-ui/icons/PersonAddRounded';
 import PersonRoundedIcon from '@material-ui/icons/PersonRounded';
 import DescriptionRoundedIcon from '@material-ui/icons/DescriptionRounded';
@@ -17,15 +15,14 @@ const useStyles = makeStyles({
     width: '100%',
     position: 'fixed',
     bottom: 0,
-    background: '#eeeeee'
+    background: '#eeeeee',
+    zIndex: 3
   }
 });
 
 export default function BottomNav() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
-
-  const { house } = useContext(BoarderContext);
 
   return (
     <BottomNavigation
