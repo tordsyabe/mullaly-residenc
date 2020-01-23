@@ -38,15 +38,6 @@ const Home = props => {
           background: `url(${bg}) no-repeat`,
           backgroundSize: 'cover'
         }}>
-        {/* <img
-          src={residence}
-          style={{
-            objectFit: 'cover',
-            height: '100%',
-            paddingRight: '1rem'
-          }}
-          alt='residence'
-        /> */}
         <div
           style={{
             position: 'absolute',

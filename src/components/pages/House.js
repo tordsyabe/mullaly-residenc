@@ -63,7 +63,8 @@ const House = props => {
             color: '#ffffff',
             height: '250px',
             background: `url(${bg}) no-repeat`,
-            backgroundSize: 'cover'
+            backgroundSize: 'cover',
+            backgroundPosition: 'center'
           }}>
           <Container>
             <Typography variant='h4'>{headerTitle(location)}</Typography>
