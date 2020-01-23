@@ -9,6 +9,7 @@ const HouseContextProvider = props => {
   const [isHousesEmpty, setIsHousesEmpty] = useState(true);
 
   useEffect(() => {
+    console.log('HELLO FROM HOME CONTEXT');
     const unsubscribe = firebase
       .firestore()
       .collection('houses')

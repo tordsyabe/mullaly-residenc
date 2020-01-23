@@ -26,7 +26,6 @@ function ElevationScroll(props) {
 export default function HomeHeader(props) {
   return (
     <React.Fragment>
-      <CssBaseline />
       <ElevationScroll {...props}>
         <AppBar>
           <Toolbar>

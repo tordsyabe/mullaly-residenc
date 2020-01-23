@@ -13,6 +13,7 @@ const BoarderContextProvider = props => {
   const [house, setHouse] = useState({});
 
   useEffect(() => {
+    console.log('HELLO FROM BOARDER CONTEXT');
     setIsBoardersEmpty(true);
     const unsubscribe = firebase
       .firestore()
