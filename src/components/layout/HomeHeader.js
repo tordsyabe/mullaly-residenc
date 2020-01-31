@@ -1,11 +1,13 @@
-import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import useScrollTrigger from '@material-ui/core/useScrollTrigger';
+import React from "react";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 
-import logo from '../../assets/logo.png';
+import logo from "../../assets/logo.png";
+import { Grid } from "@material-ui/core";
+import SingOutButton from "../ui/SingOutButton";
 
 function ElevationScroll(props) {
   const { children, window } = props;
@@ -29,13 +31,20 @@ export default function HomeHeader(props) {
       <ElevationScroll {...props}>
         <AppBar>
           <Toolbar>
-            <img
-              src={logo}
-              width='45px'
-              alt='logo'
-              style={{ marginRight: '0.6rem' }}
-            />
-            <Typography variant='h6'>Mullaly Residence</Typography>
+            <Grid container justify='space-between'>
+              <Grid item style={{ display: "flex", alignItems: "center" }}>
+                <img
+                  src={logo}
+                  width='45px'
+                  alt='logo'
+                  style={{ marginRight: "0.6rem" }}
+                />
+                <Typography variant='h6'>Mullaly Residence</Typography>
+              </Grid>
+              <Grid item>
+                <SingOutButton />
+              </Grid>
+            </Grid>
           </Toolbar>
         </AppBar>
       </ElevationScroll>

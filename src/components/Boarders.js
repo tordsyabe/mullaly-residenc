@@ -1,9 +1,9 @@
-import React, { useContext, Fragment } from 'react';
+import React, { useContext, Fragment } from "react";
 
-import Boarder from './Boarder';
+import Boarder from "./Boarder";
 
-import { Link } from 'react-router-dom';
-import { BoarderContext } from '../contexts/BoarderContext';
+import { Link } from "react-router-dom";
+import { BoarderContext } from "../contexts/BoarderContext";
 import {
   Typography,
   Grid,
@@ -12,9 +12,9 @@ import {
   CardContent,
   Container,
   Grow
-} from '@material-ui/core';
+} from "@material-ui/core";
 
-import AddIcon from '@material-ui/icons/Add';
+import AddIcon from "@material-ui/icons/Add";
 
 const Boarders = props => {
   const { boarders, isBoardersEmpty } = useContext(BoarderContext);
@@ -26,8 +26,9 @@ const Boarders = props => {
         justify='center'
         alignContent='center'
         style={{
-          marginTop: '8rem'
-        }}>
+          marginTop: "8rem"
+        }}
+      >
         <CircularProgress />
       </Grid>
     );
@@ -42,26 +43,29 @@ const Boarders = props => {
               <Grid item xs={12} md={4} lg={4}>
                 <Link
                   to='/boarding-house/add-boarder'
-                  style={{ textDecoration: 'none' }}>
+                  style={{ textDecoration: "none" }}
+                >
                   <Card
                     style={{
-                      width: '100%',
-                      height: '208px',
-                      cursor: 'pointer'
-                    }}>
+                      width: "100%",
+                      height: "208px",
+                      cursor: "pointer"
+                    }}
+                  >
                     <CardContent
                       style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        textAlign: 'center',
-                        height: '100%'
-                      }}>
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        textAlign: "center",
+                        height: "100%"
+                      }}
+                    >
                       <AddIcon fontSize='large' color='primary' />
                       <br />
                       <Typography color='primary' variant='subtitle2'>
-                        Add Boarding boarder
+                        Add boarder
                       </Typography>
                     </CardContent>
                   </Card>

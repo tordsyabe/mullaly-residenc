@@ -9,13 +9,15 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
 import logo from "../../assets/logo.png";
-import { signIn } from "../../services/LoginService";
+import { signIn } from "../../services/AuthService";
 
 import { useHistory } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 
 import { Redirect } from "react-router-dom";
+import { CircularProgress } from "@material-ui/core";
+import SingOutButton from "../ui/SingOutButton";
 
 function Copyright() {
   return (
@@ -48,7 +50,9 @@ export default function SignIn() {
   const history = useHistory();
   const classes = useStyles();
 
-  const { currentUser } = useContext(AuthContext);
+  const { isLoading, setIsAuthenticated, currentUser } = useContext(
+    AuthContext
+  );
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -65,9 +69,6 @@ export default function SignIn() {
       });
   };
 
-  if (!currentUser) {
-    return <Redirect to={{ pathname: "/" }} />;
-  }
   return (
     <Container component='main' maxWidth='xs'>
       <div className={classes.paper}>
@@ -119,6 +120,7 @@ export default function SignIn() {
       </div>
       <Box mt={8}>
         <Copyright />
+        <SingOutButton />
       </Box>
     </Container>
   );

@@ -1,38 +1,38 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState } from "react";
 
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
-import { Divider, Grid, Grow, Fab } from '@material-ui/core';
+import { makeStyles } from "@material-ui/core/styles";
+import Card from "@material-ui/core/Card";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import Typography from "@material-ui/core/Typography";
+import { Divider, Grid, Grow, Fab, Tooltip } from "@material-ui/core";
 
-import RemoveCircleOutlineRoundedIcon from '@material-ui/icons/RemoveCircleOutlineRounded';
-import EventBusyRoundedIcon from '@material-ui/icons/EventBusyRounded';
+import RemoveCircleOutlineRoundedIcon from "@material-ui/icons/RemoveCircleOutlineRounded";
+import EventBusyRoundedIcon from "@material-ui/icons/EventBusyRounded";
 
-import PreviousMonth from './PreviousMonth';
-import { formatDate } from '../utils/Utils';
-import PaymentDialog from './ui/PaymentDialog';
+import PreviousMonth from "./PreviousMonth";
+import { formatDate } from "../utils/Utils";
+import PaymentDialog from "./ui/PaymentDialog";
 
-import clsx from 'clsx';
-import Collapse from '@material-ui/core/Collapse';
-import IconButton from '@material-ui/core/IconButton';
-import { red } from '@material-ui/core/colors';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import clsx from "clsx";
+import Collapse from "@material-ui/core/Collapse";
+import IconButton from "@material-ui/core/IconButton";
+import { red } from "@material-ui/core/colors";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
-import PaymentRoundedIcon from '@material-ui/icons/PaymentRounded';
+import PaymentRoundedIcon from "@material-ui/icons/PaymentRounded";
 
-import DeleteDialog from './ui/DeleteDialog';
+import DeleteDialog from "./ui/DeleteDialog";
 
 const useStyles = makeStyles(theme => ({
   card: {
     minWidth: 275,
-    paddingBottom: '0.6rem'
+    paddingBottom: "0.6rem"
   },
   bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)'
+    display: "inline-block",
+    margin: "0 2px",
+    transform: "scale(0.8)"
   },
   title: {
     fontSize: 14
@@ -42,17 +42,17 @@ const useStyles = makeStyles(theme => ({
   },
   media: {
     height: 0,
-    paddingTop: '56.25%' // 16:9
+    paddingTop: "56.25%" // 16:9
   },
   expand: {
-    transform: 'rotate(0deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
+    transform: "rotate(0deg)",
+    marginLeft: "auto",
+    transition: theme.transitions.create("transform", {
       duration: theme.transitions.duration.shortest
     })
   },
   expandOpen: {
-    transform: 'rotate(180deg)'
+    transform: "rotate(180deg)"
   },
   avatar: {
     backgroundColor: red[500]
@@ -111,20 +111,20 @@ const Boarder = ({ boarder }) => {
             </Grid>
 
             <Typography variant='body2'>
-              Room rate:{' '}
+              Room rate:{" "}
               {boarder.roomRate.toLocaleString(undefined, {
                 minimumFractionDigits: 2
-              })}{' '}
-              +{' '}
+              })}{" "}
+              +{" "}
               {boarder.utilities.toLocaleString(undefined, {
                 minimumFractionDigits: 2
-              }) + ' (utilities)'}
+              }) + " (utilities)"}
             </Typography>
             <Typography variant='h6'>
               {totalRent.toLocaleString(undefined, {
                 minimumFractionDigits: 2
               })}
-              <span style={{ fontSize: '12px' }}>/month</span>
+              <span style={{ fontSize: "12px" }}>/month</span>
             </Typography>
             <Typography variant='caption'>Date Joined: {dateJoined}</Typography>
             <br />
@@ -137,17 +137,18 @@ const Boarder = ({ boarder }) => {
             <PreviousMonth boarder={boarder} />
             <br />
           </CardContent>
-          <CardActions style={{ position: 'relative' }}>
+          <CardActions style={{ position: "relative" }}>
             {/* <Button size='small'>More Details</Button> */}
             {dateToday > new Date(boarderDues.dueDate.seconds * 1000) ? (
               <Fab
                 size='small'
                 variant='extended'
                 onClick={handleClickOpenPaymentDialog}
-                color='secondary'>
+                color='secondary'
+              >
                 <EventBusyRoundedIcon
                   fontSize='small'
-                  style={{ marginRight: '0.4rem' }}
+                  style={{ marginRight: "0.4rem" }}
                 />
                 Overdue
               </Fab>
@@ -157,8 +158,9 @@ const Boarder = ({ boarder }) => {
                 variant='extended'
                 elevation={0}
                 color='primary'
-                onClick={handleClickOpenPaymentDialog}>
-                <PaymentRoundedIcon style={{ marginRight: '0.4rem' }} />
+                onClick={handleClickOpenPaymentDialog}
+              >
+                <PaymentRoundedIcon style={{ marginRight: "0.4rem" }} />
                 Make Payment
               </Fab>
             )}
@@ -170,7 +172,8 @@ const Boarder = ({ boarder }) => {
               onClick={handleExpandClick}
               aria-expanded={expanded}
               aria-label='show more'
-              style={{ position: 'absolute', right: '1rem' }}>
+              style={{ position: "absolute", right: "1rem" }}
+            >
               <ExpandMoreIcon />
             </IconButton>
           </CardActions>
@@ -190,7 +193,7 @@ const Boarder = ({ boarder }) => {
               <br />
               <Typography variant='h6'>Boarder Info</Typography>
               <Typography variant='body2'>
-                Deposit:{' '}
+                Deposit:{" "}
                 {boarder.deposit.toLocaleString(undefined, {
                   minimumFractionDigits: 2
                 })}
@@ -222,14 +225,16 @@ const Boarder = ({ boarder }) => {
                   </Grid>
                   <Grid item xs={1}>
                     {i >= 1 && (
-                      <RemoveCircleOutlineRoundedIcon
-                        style={{
-                          color: 'red',
-                          cursor: 'pointer',
-                          fontSize: '1rem'
-                        }}
-                        onClick={() => handleDeleteDues(due)}
-                      />
+                      <Tooltip title='Delete' placement='right'>
+                        <RemoveCircleOutlineRoundedIcon
+                          style={{
+                            color: "red",
+                            cursor: "pointer",
+                            fontSize: "1rem"
+                          }}
+                          onClick={() => handleDeleteDues(due)}
+                        />
+                      </Tooltip>
                     )}
                   </Grid>
                 </Grid>

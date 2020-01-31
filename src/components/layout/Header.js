@@ -1,19 +1,25 @@
-import React, { useContext, Fragment } from 'react';
+import React, { useContext, Fragment } from "react";
 
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+import { makeStyles } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
 
-import { HouseContext } from '../../contexts/HouseContext';
-import { FormControl, Select, MenuItem, Grid } from '@material-ui/core';
-import { Link } from 'react-router-dom';
-import { BoarderContext } from '../../contexts/BoarderContext';
+import { HouseContext } from "../../contexts/HouseContext";
+import {
+  FormControl,
+  Select,
+  MenuItem,
+  Grid,
+  Tooltip
+} from "@material-ui/core";
+import { Link } from "react-router-dom";
+import { BoarderContext } from "../../contexts/BoarderContext";
 
-import useScrollTrigger from '@material-ui/core/useScrollTrigger';
+import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 
-import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
+import HomeRoundedIcon from "@material-ui/icons/HomeRounded";
 
 // import PropTypes from 'prop-types';
 
@@ -66,16 +72,18 @@ const Header = props => {
                     edge='start'
                     className={classes.menuButton}
                     color='inherit'
-                    aria-label='menu'>
+                    aria-label='menu'
+                  >
                     <MenuIcon />
                   </IconButton>
-                  <FormControl style={{ width: '200px', color: '#ffffff' }}>
+                  <FormControl style={{ width: "200px", color: "#ffffff" }}>
                     <Select
                       id='select-house'
                       value={selectedHouse}
                       onChange={handleChange}
                       disableUnderline
-                      style={{ color: 'white' }}>
+                      style={{ color: "white" }}
+                    >
                       {houses.map(house => (
                         <MenuItem key={house.id} value={house.id}>
                           {house.name}
@@ -89,12 +97,15 @@ const Header = props => {
                 <Link
                   to='/'
                   style={{
-                    color: 'inherit',
-                    textDecoration: 'none'
-                  }}>
-                  <IconButton color='inherit'>
-                    <HomeRoundedIcon />
-                  </IconButton>
+                    color: "inherit",
+                    textDecoration: "none"
+                  }}
+                >
+                  <Tooltip title='Go back home' placement='bottom'>
+                    <IconButton color='inherit'>
+                      <HomeRoundedIcon />
+                    </IconButton>
+                  </Tooltip>
                 </Link>
               </Grid>
             </Grid>

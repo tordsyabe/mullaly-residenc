@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { AuthContext } from "./contexts/AuthContext";
 import { CircularProgress } from "@material-ui/core";
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
+const PublicRoute = ({ component: Component, ...rest }) => {
   const { currentUser, isAuthenticated, isLoading } = useContext(AuthContext);
 
   return (
@@ -29,14 +29,11 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
             </div>
           );
         }
-        return !!currentUser ? (
-          <Component {...props} />
-        ) : (
-          <Redirect to='/login' />
-        );
+
+        return !!currentUser ? <Redirect to='/' /> : <Component {...props} />;
       }}
     />
   );
 };
 
-export default PrivateRoute;
+export default PublicRoute;

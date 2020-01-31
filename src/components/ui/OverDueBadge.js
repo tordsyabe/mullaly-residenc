@@ -1,18 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import Badge from '@material-ui/core/Badge';
-import { withStyles } from '@material-ui/core/styles';
-import IconButton from '@material-ui/core/IconButton';
+import React, { useEffect, useState } from "react";
+import Badge from "@material-ui/core/Badge";
+import { withStyles } from "@material-ui/core/styles";
+import IconButton from "@material-ui/core/IconButton";
 
-import NotificationsActiveRoundedIcon from '@material-ui/icons/NotificationsActiveRounded';
+import NotificationsActiveRoundedIcon from "@material-ui/icons/NotificationsActiveRounded";
 
-import firebase from '../../firebase';
+import firebase from "../../firebase";
+import { Tooltip } from "@material-ui/core";
 
 const StyledBadge = withStyles(theme => ({
   badge: {
     right: -3,
     top: 13,
     border: `2px solid ${theme.palette.background.paper}`,
-    padding: '0 4px'
+    padding: "0 4px"
   }
 }))(Badge);
 
@@ -25,7 +26,7 @@ export default function OverDueBadge({ boarders }) {
       boarders.forEach(boarder => {
         firebase
           .firestore()
-          .collection('boarders')
+          .collection("boarders")
           .doc(boarder.id)
           .get()
           .then(doc => {
@@ -41,10 +42,12 @@ export default function OverDueBadge({ boarders }) {
   }, []);
 
   return (
-    <IconButton aria-label='cart'>
-      <StyledBadge badgeContent={overDuesCount} color='secondary'>
-        <NotificationsActiveRoundedIcon />
-      </StyledBadge>
-    </IconButton>
+    <Tooltip title='Overdue boarders' placement='bottom'>
+      <IconButton aria-label='cart'>
+        <StyledBadge badgeContent={overDuesCount} color='secondary'>
+          <NotificationsActiveRoundedIcon />
+        </StyledBadge>
+      </IconButton>
+    </Tooltip>
   );
 }
