@@ -21,7 +21,7 @@ const useStyles = makeStyles({
 export default function BottomNav() {
   const history = useHistory();
   const classes = useStyles();
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState("boarding-house");
 
   return (
     <BottomNavigation
