@@ -30,10 +30,10 @@ const Home = props => {
         style={{
           width: "100%",
           backgroundColor: "#1976d2",
-          padding: "5rem 0",
+          padding: "6rem 0",
           display: "flex",
           justifyContent: "flex-end",
-          height: "250px",
+          height: "275px",
           background: `url(${bg}) no-repeat`,
           backgroundSize: "cover"
         }}

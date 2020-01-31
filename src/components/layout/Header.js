@@ -62,56 +62,56 @@ const Header = props => {
   };
   return (
     <Fragment>
-      <ElevationScroll {...props}>
-        <AppBar>
-          <Toolbar>
-            <Grid container justify='space-between'>
-              <Grid item>
-                <Grid container alignItems='center'>
-                  <IconButton
-                    edge='start'
-                    className={classes.menuButton}
-                    color='inherit'
-                    aria-label='menu'
-                  >
-                    <MenuIcon />
-                  </IconButton>
-                  <FormControl style={{ width: "200px", color: "#ffffff" }}>
-                    <Select
-                      id='select-house'
-                      value={selectedHouse}
-                      onChange={handleChange}
-                      disableUnderline
-                      style={{ color: "white" }}
-                    >
-                      {houses.map(house => (
-                        <MenuItem key={house.id} value={house.id}>
-                          {house.name}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                </Grid>
-              </Grid>
-              <Grid item>
-                <Link
-                  to='/'
-                  style={{
-                    color: "inherit",
-                    textDecoration: "none"
-                  }}
+      {/* <ElevationScroll {...props}> */}
+      <AppBar elevation={4}>
+        <Toolbar>
+          <Grid container justify='space-between'>
+            <Grid item>
+              <Grid container alignItems='center'>
+                <IconButton
+                  edge='start'
+                  className={classes.menuButton}
+                  color='inherit'
+                  aria-label='menu'
                 >
-                  <Tooltip title='Go back home' placement='bottom'>
-                    <IconButton color='inherit'>
-                      <HomeRoundedIcon />
-                    </IconButton>
-                  </Tooltip>
-                </Link>
+                  <MenuIcon />
+                </IconButton>
+                <FormControl style={{ width: "200px", color: "#ffffff" }}>
+                  <Select
+                    id='select-house'
+                    value={selectedHouse}
+                    onChange={handleChange}
+                    disableUnderline
+                    style={{ color: "white" }}
+                  >
+                    {houses.map(house => (
+                      <MenuItem key={house.id} value={house.id}>
+                        {house.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
               </Grid>
             </Grid>
-          </Toolbar>
-        </AppBar>
-      </ElevationScroll>
+            <Grid item>
+              <Link
+                to='/'
+                style={{
+                  color: "inherit",
+                  textDecoration: "none"
+                }}
+              >
+                <Tooltip title='Go back home' placement='bottom'>
+                  <IconButton color='inherit'>
+                    <HomeRoundedIcon />
+                  </IconButton>
+                </Tooltip>
+              </Link>
+            </Grid>
+          </Grid>
+        </Toolbar>
+      </AppBar>
+      {/* </ElevationScroll> */}
     </Fragment>
   );
 };

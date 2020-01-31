@@ -60,9 +60,9 @@ const House = props => {
         <div
           style={{
             backgroundColor: "#1976d2",
-            padding: "5rem 0",
+            padding: "6rem 0",
             color: "#ffffff",
-            height: "250px",
+            height: "275px",
             background: `url(${bg}) no-repeat`,
             backgroundSize: "cover",
             backgroundPosition: "center"

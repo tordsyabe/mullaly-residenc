@@ -120,7 +120,6 @@ export default function SignIn() {
       </div>
       <Box mt={8}>
         <Copyright />
-        <SingOutButton />
       </Box>
     </Container>
   );

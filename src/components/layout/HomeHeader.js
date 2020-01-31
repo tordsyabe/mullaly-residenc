@@ -28,26 +28,26 @@ function ElevationScroll(props) {
 export default function HomeHeader(props) {
   return (
     <React.Fragment>
-      <ElevationScroll {...props}>
-        <AppBar>
-          <Toolbar>
-            <Grid container justify='space-between'>
-              <Grid item style={{ display: "flex", alignItems: "center" }}>
-                <img
-                  src={logo}
-                  width='45px'
-                  alt='logo'
-                  style={{ marginRight: "0.6rem" }}
-                />
-                <Typography variant='h6'>Mullaly Residence</Typography>
-              </Grid>
-              <Grid item>
-                <SingOutButton />
-              </Grid>
+      {/* <ElevationScroll {...props}> */}
+      <AppBar elevation={4}>
+        <Toolbar>
+          <Grid container justify='space-between'>
+            <Grid item style={{ display: "flex", alignItems: "center" }}>
+              <img
+                src={logo}
+                width='45px'
+                alt='logo'
+                style={{ marginRight: "0.6rem" }}
+              />
+              <Typography variant='h6'>Mullaly Residence</Typography>
             </Grid>
-          </Toolbar>
-        </AppBar>
-      </ElevationScroll>
+            <Grid item>
+              <SingOutButton />
+            </Grid>
+          </Grid>
+        </Toolbar>
+      </AppBar>
+      {/* </ElevationScroll> */}
     </React.Fragment>
   );
 }
