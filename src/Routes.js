@@ -14,6 +14,7 @@ const Routes = props => {
       <Switch>
         <PrivateRoute exact path='/' component={Home} />
         <PrivateRoute path={`/boarding-house`} component={House} />
+
         <PublicRoute path='/login' component={SignIn} />
 
         <PrivateRoute component={NotFound} />

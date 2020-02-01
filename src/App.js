@@ -4,8 +4,6 @@ import { BrowserRouter } from "react-router-dom";
 
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 
-import HouseContextProvider from "./contexts/HouseContext";
-import BoarderContextProvider from "./contexts/BoarderContext";
 import Routes from "./Routes";
 import AuthContextProvider from "./contexts/AuthContext";
 
@@ -26,11 +24,7 @@ function App() {
     <BrowserRouter>
       <MuiThemeProvider theme={theme}>
         <AuthContextProvider>
-          <HouseContextProvider>
-            <BoarderContextProvider>
-              <Routes />
-            </BoarderContextProvider>
-          </HouseContextProvider>
+          <Routes />
         </AuthContextProvider>
       </MuiThemeProvider>
     </BrowserRouter>

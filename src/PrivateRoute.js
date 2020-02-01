@@ -3,6 +3,8 @@ import { Route, Redirect } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "./contexts/AuthContext";
 import { CircularProgress } from "@material-ui/core";
+import BoarderContextProvider from "./contexts/BoarderContext";
+import HouseContextProvider from "./contexts/HouseContext";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const { currentUser, isAuthenticated, isLoading } = useContext(AuthContext);
@@ -30,7 +32,11 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
           );
         }
         return !!currentUser ? (
-          <Component {...props} />
+          <HouseContextProvider>
+            <BoarderContextProvider>
+              <Component {...props} />
+            </BoarderContextProvider>
+          </HouseContextProvider>
         ) : (
           <Redirect to='/login' />
         );

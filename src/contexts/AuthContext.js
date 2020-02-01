@@ -14,11 +14,7 @@ const AuthContextProvider = props => {
   // const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    checkUserStatus();
-  });
-
-  const checkUserStatus = async () => {
-    await firebase.auth().onAuthStateChanged(user => {
+    firebase.auth().onAuthStateChanged(user => {
       setIsLoading(false);
       if (user) {
         setCurrentUser(user);
@@ -30,7 +26,7 @@ const AuthContextProvider = props => {
         // setIsAuthenticated(false);
       }
     });
-  };
+  });
 
   return (
     <AuthContext.Provider
