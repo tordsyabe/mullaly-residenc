@@ -23,6 +23,7 @@ const PaymentDialog = ({ open, handleClose, boarder }) => {
   const [note, setNote] = useState("");
 
   const [isPaying, setIsPaying] = useState(false);
+  const [isPaid, setIsPaid] = useState(false);
 
   const boarderDues = boarder.dues.slice(-1)[0];
   const dueDate = formatDate(new Date(boarderDues.dueDate.seconds * 1000));
@@ -39,6 +40,7 @@ const PaymentDialog = ({ open, handleClose, boarder }) => {
 
   const handlePayment = async e => {
     e.preventDefault();
+    setIsPaying(true);
     await firebase
       .firestore()
       .collection("boarders")
@@ -64,6 +66,7 @@ const PaymentDialog = ({ open, handleClose, boarder }) => {
       });
 
     await setIsPaying(true);
+    await setIsPaid(true);
   };
 
   return (
@@ -73,7 +76,7 @@ const PaymentDialog = ({ open, handleClose, boarder }) => {
         onClose={handleClose}
         aria-labelledby='form-dialog-title'
       >
-        {isPaying ? (
+        {isPaid ? (
           <Fragment>
             <DialogTitle id='form-dialog-title'>Payment success</DialogTitle>
             <DialogContent>
@@ -96,9 +99,10 @@ const PaymentDialog = ({ open, handleClose, boarder }) => {
                 <Button
                   onClick={() => {
                     handleClose();
-                    setTimeout(() => {
-                      setIsPaying(false);
-                    }, 1000);
+                    setIsPaid(false);
+
+                    setIsPaying(false);
+
                     setAmount("");
                     setNote("");
                   }}
@@ -122,10 +126,6 @@ const PaymentDialog = ({ open, handleClose, boarder }) => {
                 </span>{" "}
                 . Any balance from previous month will be added on the current
                 outstanding.
-                <br />
-                <br />
-                Due date:{" "}
-                <span style={{ fontWeight: "bold" }}>{prevDueDate}</span>
                 <br />
               </DialogContentText>
               <KeyboardDatePicker
@@ -170,7 +170,7 @@ const PaymentDialog = ({ open, handleClose, boarder }) => {
                 Cancel
               </Button>
               <Button type='submit' color='primary' disabled={isPaying}>
-                Pay
+                {isPaying ? "Paying..." : "Pay"}
               </Button>
             </DialogActions>
           </form>

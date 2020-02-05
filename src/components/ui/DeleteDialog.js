@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Dialog,
   DialogTitle,
@@ -6,9 +6,9 @@ import {
   DialogContentText,
   DialogActions,
   Button
-} from '@material-ui/core';
+} from "@material-ui/core";
 
-import firebase from '../../firebase';
+import firebase from "../../firebase";
 
 const DeleteDialog = ({ open, handleClose, toDelete, boarder }) => {
   const [isDeleting, setIsDeleting] = useState(false);
@@ -24,7 +24,7 @@ const DeleteDialog = ({ open, handleClose, toDelete, boarder }) => {
 
     firebase
       .firestore()
-      .collection('boarders')
+      .collection("boarders")
       .doc(boarder.id)
       .update({
         dues: updatedDues
@@ -40,7 +40,8 @@ const DeleteDialog = ({ open, handleClose, toDelete, boarder }) => {
       open={open}
       onClose={handleClose}
       aria-labelledby='alert-dialog-title'
-      aria-describedby='alert-dialog-description'>
+      aria-describedby='alert-dialog-description'
+    >
       <DialogTitle id='alert-dialog-title'>Delete payment</DialogTitle>
       <DialogContent>
         <DialogContentText id='alert-dialog-description'>
@@ -52,7 +53,7 @@ const DeleteDialog = ({ open, handleClose, toDelete, boarder }) => {
           Cancel
         </Button>
         <Button onClick={handleDelete} color='primary' disabled={isDeleting}>
-          Delete
+          {isDeleting ? "Deleting..." : "Delete"}
         </Button>
       </DialogActions>
     </Dialog>

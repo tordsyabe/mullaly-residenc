@@ -6,6 +6,7 @@ import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
 import PersonAddRoundedIcon from "@material-ui/icons/PersonAddRounded";
 import PersonRoundedIcon from "@material-ui/icons/PersonRounded";
 import DescriptionRoundedIcon from "@material-ui/icons/DescriptionRounded";
+import AssignmentIndRoundedIcon from "@material-ui/icons/AssignmentIndRounded";
 
 import { Link, useHistory } from "react-router-dom";
 
@@ -35,32 +36,27 @@ export default function BottomNav() {
     >
       <BottomNavigationAction
         label='Boarders'
-        icon={
-          <Link to='/boarding-house' style={{ color: "inherit" }}>
-            <PersonRoundedIcon />
-          </Link>
-        }
+        icon={<PersonRoundedIcon />}
         value='boarding-house'
       />
 
       <BottomNavigationAction
         label='Bills'
-        icon={
-          <Link to='/boarding-house/bills' style={{ color: "inherit" }}>
-            <DescriptionRoundedIcon />
-          </Link>
-        }
+        icon={<DescriptionRoundedIcon />}
         value='boarding-house/bills'
+        disabled
       />
 
       <BottomNavigationAction
         label='Add Boarder'
-        icon={
-          <Link to='/boarding-house/add-boarder' style={{ color: "inherit" }}>
-            <PersonAddRoundedIcon />
-          </Link>
-        }
+        icon={<PersonAddRoundedIcon />}
         value='boarding-house/add-boarder'
+      />
+
+      <BottomNavigationAction
+        label='Manage'
+        icon={<AssignmentIndRoundedIcon />}
+        value='boarding-house/manage-boarders'
       />
     </BottomNavigation>
   );

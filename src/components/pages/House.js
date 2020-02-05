@@ -16,6 +16,7 @@ import AddBoarder from "../AddBoarder";
 import NotFound from "../layout/NotFound";
 
 import bg from "../../assets/bg.png";
+import ManageBoarders from "../ManageBoarder";
 
 const House = props => {
   const { house, isBoardersEmpty } = useContext(BoarderContext);
@@ -95,6 +96,11 @@ const House = props => {
               exact
               path={`/boarding-house/add-boarder`}
               component={AddBoarder}
+            />
+            <Route
+              exact
+              path={`/boarding-house/manage-boarders`}
+              component={ManageBoarders}
             />
             <Route component={NotFound} />
           </Switch>
