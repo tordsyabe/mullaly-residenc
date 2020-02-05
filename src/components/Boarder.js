@@ -5,7 +5,7 @@ import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-import { Divider, Grid, Grow, Fab, Tooltip } from "@material-ui/core";
+import { Divider, Grid, Grow, Fab, Tooltip, Box } from "@material-ui/core";
 
 import RemoveCircleOutlineRoundedIcon from "@material-ui/icons/RemoveCircleOutlineRounded";
 import EventBusyRoundedIcon from "@material-ui/icons/EventBusyRounded";
@@ -106,8 +106,8 @@ const Boarder = ({ boarder }) => {
             <Grid container justify='space-between'>
               <Grid item>
                 <Typography variant='h5'>{boarder.name}</Typography>
+                <br />
               </Grid>
-              <Grid item></Grid>
             </Grid>
 
             <Typography variant='body2'>
@@ -120,7 +120,7 @@ const Boarder = ({ boarder }) => {
                 minimumFractionDigits: 2
               }) + " (utilities)"}
             </Typography>
-            <Typography variant='h6'>
+            <Typography variant='body1'>
               {totalRent.toLocaleString(undefined, {
                 minimumFractionDigits: 2
               })}
@@ -130,9 +130,10 @@ const Boarder = ({ boarder }) => {
             <br />
             <br />
             <Divider />
-            <br />
 
-            <Typography variant='h6'>Due Date</Typography>
+            {/* <Typography variant='body1'>
+              <Box fontWeight='fontWeightBold'>Due Date</Box>
+            </Typography> */}
             <br />
             <PreviousMonth boarder={boarder} />
             <br />

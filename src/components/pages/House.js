@@ -30,6 +30,8 @@ const House = props => {
         return "House Bills";
       case "/boarding-house/add-boarder":
         return "Add Boarder";
+      case "/boarding-house/manage-boarders":
+        return "Manage Boarders";
       default:
         return "Boarders";
     }

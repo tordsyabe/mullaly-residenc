@@ -15,11 +15,12 @@ const PreviousMonth = ({ boarder }) => {
 
   return (
     <Fragment>
+      <Typography variant='h5' style={{ color: "red" }}>
+        {dueDate}
+      </Typography>
+      <br />
       <Grid container spacing={1}>
         <Grid item xs={6}>
-          <Typography variant='body1'>{dueDate}</Typography>
-          <br />
-
           <Typography variant='body2'>
             Last payment:{" "}
             {boarderDues.amountPaid.toLocaleString(undefined, {

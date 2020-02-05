@@ -48,7 +48,7 @@ export default function BottomNav() {
       />
 
       <BottomNavigationAction
-        label='Add Boarder'
+        label='Add'
         icon={<PersonAddRoundedIcon />}
         value='boarding-house/add-boarder'
       />
