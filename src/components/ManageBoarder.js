@@ -8,7 +8,8 @@ import {
   ListItemText,
   ListItemSecondaryAction,
   IconButton,
-  Divider
+  Divider,
+  Grow
 } from "@material-ui/core";
 
 import PersonRoundedIcon from "@material-ui/icons/PersonRounded";
@@ -21,30 +22,32 @@ const ManageBoarders = props => {
   console.log(boarders);
 
   return (
-    <div>
-      <Paper>
-        <List>
-          {boarders.map(boarder => (
-            <Fragment>
-              <ListItem>
-                <ListItemAvatar>
-                  <Avatar>
-                    <PersonRoundedIcon />
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText primary={boarder.name} secondary='Active' />
-                <ListItemSecondaryAction>
-                  <IconButton edge='end' aria-label='delete'>
-                    <DeleteRoundedIcon />
-                  </IconButton>
-                </ListItemSecondaryAction>
-              </ListItem>
-              <Divider variant='inset' component='li' />
-            </Fragment>
-          ))}
-        </List>
-      </Paper>
-    </div>
+    <Fragment>
+      <Grow in={true} timeout={500}>
+        <Paper>
+          <List>
+            {boarders.map(boarder => (
+              <Fragment>
+                <ListItem>
+                  <ListItemAvatar>
+                    <Avatar>
+                      <PersonRoundedIcon />
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText primary={boarder.name} secondary='Active' />
+                  <ListItemSecondaryAction>
+                    <IconButton edge='end' aria-label='delete'>
+                      <DeleteRoundedIcon />
+                    </IconButton>
+                  </ListItemSecondaryAction>
+                </ListItem>
+                <Divider variant='inset' component='li' />
+              </Fragment>
+            ))}
+          </List>
+        </Paper>
+      </Grow>
+    </Fragment>
   );
 };
 
