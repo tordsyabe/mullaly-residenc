@@ -39,7 +39,7 @@ export default function OverDueBadge({ boarders }) {
           });
       });
     }
-  }, []);
+  }, [boarders]);
 
   return (
     <Tooltip title='Overdue boarders' placement='bottom'>

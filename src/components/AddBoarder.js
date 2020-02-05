@@ -1,17 +1,17 @@
-import React, { useState, useContext, useEffect, Fragment } from 'react';
+import React, { useState, useContext, useEffect, Fragment } from "react";
 
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
 
-import firebase from '../firebase';
+import firebase from "../firebase";
 
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 
-import DateFnsUtils from '@date-io/date-fns';
+import DateFnsUtils from "@date-io/date-fns";
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker
-} from '@material-ui/pickers';
+} from "@material-ui/pickers";
 import {
   MenuItem,
   Grid,
@@ -20,17 +20,17 @@ import {
   CardContent,
   Typography,
   Grow
-} from '@material-ui/core';
-import { saveBoarder } from '../services/BoarderService';
-import { BoarderContext } from '../contexts/BoarderContext';
-import AddBoarderDialogSuccess from './ui/AddBoarderDialogSuccess';
+} from "@material-ui/core";
+import { saveBoarder } from "../services/BoarderService";
+import { BoarderContext } from "../contexts/BoarderContext";
+import AddBoarderDialogSuccess from "./ui/AddBoarderDialogSuccess";
 
 const useStyles = makeStyles(theme => ({
   card: {
     minWidth: 275,
     maxWidth: 550,
-    margin: 'auto',
-    padding: '1rem'
+    margin: "auto",
+    padding: "1rem"
   }
 }));
 
@@ -43,29 +43,27 @@ const AddBoarder = props => {
   useEffect(() => {
     firebase
       .firestore()
-      .collection('houses')
+      .collection("houses")
       .doc(selectedHouse)
       .get()
       .then(doc => {
         setRooms(doc.data().rooms);
-        setHouse(doc.data());
       });
   }, [selectedHouse]);
 
-  const [house, setHouse] = useState({});
   const [houseId, setHouseId] = useState(selectedHouse);
-  const [name, setName] = useState('');
+  const [name, setName] = useState("");
   const [rooms, setRooms] = useState([]);
-  const [roomNumber, setRoomNumber] = useState('');
+  const [roomNumber, setRoomNumber] = useState("");
   const [roomRate, setRoomRate] = useState(0);
-  const [typeOfRent, setTypeOfRent] = useState('');
+  const [typeOfRent, setTypeOfRent] = useState("");
   const [deposit, setDeposit] = useState(0);
   const [utilities, setUtilities] = useState(0);
   const [advancePayment, setAdvancePayment] = useState(0);
 
-  const [email, setEmail] = useState('');
-  const [permanentAddress, setPermanentAddress] = useState('');
-  const [mobileNumber, setMobileNumber] = useState('');
+  const [email, setEmail] = useState("");
+  const [permanentAddress, setPermanentAddress] = useState("");
+  const [mobileNumber, setMobileNumber] = useState("");
 
   const handleDateChange = date => {
     setDateJoined(date);
@@ -112,7 +110,7 @@ const AddBoarder = props => {
     }).then(docRef => {
       firebase
         .firestore()
-        .collection('houses')
+        .collection("houses")
         .doc(houseId)
         .update({
           boarders: firebase.firestore.FieldValue.arrayUnion(
@@ -122,18 +120,18 @@ const AddBoarder = props => {
         .then(() => {
           setDateJoined(new Date());
 
-          setHouseId('');
-          setName('');
-          setRoomNumber('');
-          setRoomRate('');
-          setTypeOfRent('');
-          setDeposit('');
-          setUtilities('');
-          setAdvancePayment('');
+          setHouseId("");
+          setName("");
+          setRoomNumber("");
+          setRoomRate("");
+          setTypeOfRent("");
+          setDeposit("");
+          setUtilities("");
+          setAdvancePayment("");
 
-          setEmail('');
-          setPermanentAddress('');
-          setMobileNumber('');
+          setEmail("");
+          setPermanentAddress("");
+          setMobileNumber("");
           setIsSavingBoarder(false);
           handleOpenAddBoarderDialogSuccess();
         });
@@ -173,7 +171,7 @@ const AddBoarder = props => {
                   value={dateJoined}
                   onChange={handleDateChange}
                   KeyboardButtonProps={{
-                    'aria-label': 'change date'
+                    "aria-label": "change date"
                   }}
                   fullWidth
                   autoOk
@@ -254,7 +252,8 @@ const AddBoarder = props => {
                 required
                 onChange={e => {
                   setRoomNumber(e.target.value);
-                }}>
+                }}
+              >
                 {rooms.map(room => (
                   <MenuItem key={room.number} value={room.number}>
                     Room {room.number}
@@ -313,8 +312,9 @@ const AddBoarder = props => {
                 variant='contained'
                 type='submit'
                 color='primary'
-                disabled={isSavingBoarder}>
-                {isSavingBoarder ? 'Saving Boarder...' : 'Save'}
+                disabled={isSavingBoarder}
+              >
+                {isSavingBoarder ? "Saving Boarder..." : "Save"}
               </Button>
             </CardActions>
           </form>

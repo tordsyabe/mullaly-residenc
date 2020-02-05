@@ -3,7 +3,7 @@ import HomeHeader from "../layout/HomeHeader";
 
 import AddIcon from "@material-ui/icons/Add";
 
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import {
   Typography,

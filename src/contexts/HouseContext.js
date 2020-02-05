@@ -1,6 +1,6 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect } from "react";
 
-import firebase from '../firebase';
+import firebase from "../firebase";
 
 export const HouseContext = createContext();
 
@@ -9,10 +9,9 @@ const HouseContextProvider = props => {
   const [isHousesEmpty, setIsHousesEmpty] = useState(true);
 
   useEffect(() => {
-    console.log('HELLO FROM HOME CONTEXT');
     const unsubscribe = firebase
       .firestore()
-      .collection('houses')
+      .collection("houses")
       .onSnapshot(
         snapShot => {
           const newHouses = snapShot.docs.map(doc => ({
@@ -30,7 +29,8 @@ const HouseContextProvider = props => {
 
   return (
     <HouseContext.Provider
-      value={{ houses, setHouses, isHousesEmpty, setIsHousesEmpty }}>
+      value={{ houses, setHouses, isHousesEmpty, setIsHousesEmpty }}
+    >
       {props.children}
     </HouseContext.Provider>
   );

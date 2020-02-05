@@ -5,7 +5,7 @@ import { AuthContext } from "./contexts/AuthContext";
 import { CircularProgress } from "@material-ui/core";
 
 const PublicRoute = ({ component: Component, ...rest }) => {
-  const { currentUser, isAuthenticated, isLoading } = useContext(AuthContext);
+  const { currentUser, isLoading } = useContext(AuthContext);
 
   return (
     <Route

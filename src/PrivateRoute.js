@@ -7,7 +7,7 @@ import BoarderContextProvider from "./contexts/BoarderContext";
 import HouseContextProvider from "./contexts/HouseContext";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  const { currentUser, isAuthenticated, isLoading } = useContext(AuthContext);
+  const { currentUser, isLoading } = useContext(AuthContext);
 
   return (
     <Route

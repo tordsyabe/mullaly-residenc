@@ -1,6 +1,6 @@
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useEffect, useState } from "react";
 
-import firebase from '../firebase';
+import firebase from "../firebase";
 
 export const BoarderContext = createContext();
 
@@ -8,17 +8,16 @@ const BoarderContextProvider = props => {
   const [boarders, setBoarders] = useState([]);
   const [isBoardersEmpty, setIsBoardersEmpty] = useState(true);
 
-  const [selectedHouse, setSelectedHouse] = useState('prXVJsQpDcp43bC7xTf5');
+  const [selectedHouse, setSelectedHouse] = useState("prXVJsQpDcp43bC7xTf5");
 
   const [house, setHouse] = useState({});
 
   useEffect(() => {
-    console.log('HELLO FROM BOARDER CONTEXT');
     setIsBoardersEmpty(true);
     const unsubscribe = firebase
       .firestore()
-      .collection('boarders')
-      .where('house', '==', firebase.firestore().doc(`houses/${selectedHouse}`))
+      .collection("boarders")
+      .where("house", "==", firebase.firestore().doc(`houses/${selectedHouse}`))
       .onSnapshot(
         snapShot => {
           const newBoarders = snapShot.docs.map(doc => ({
@@ -37,7 +36,7 @@ const BoarderContextProvider = props => {
   useEffect(() => {
     firebase
       .firestore()
-      .collection('houses')
+      .collection("houses")
       .doc(selectedHouse)
       .get()
       .then(doc => {
@@ -59,7 +58,8 @@ const BoarderContextProvider = props => {
         setSelectedHouse,
         selectedHouse,
         house
-      }}>
+      }}
+    >
       {props.children}
     </BoarderContext.Provider>
   );

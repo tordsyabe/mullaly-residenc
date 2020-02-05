@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 
-import { Switch, Route } from "react-router-dom";
+import { Switch } from "react-router-dom";
 import NotFound from "./components/layout/NotFound";
 import House from "./components/pages/House";
 import Home from "./components/pages/Home";

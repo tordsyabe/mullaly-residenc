@@ -12,12 +12,7 @@ import logo from "../../assets/logo.png";
 import { signIn } from "../../services/AuthService";
 
 import { useHistory } from "react-router-dom";
-import { useContext } from "react";
-import { AuthContext } from "../../contexts/AuthContext";
-
-import { Redirect } from "react-router-dom";
-import { CircularProgress } from "@material-ui/core";
-import SingOutButton from "../ui/SingOutButton";
+import { Snackbar } from "@material-ui/core";
 
 function Copyright() {
   return (
@@ -50,22 +45,33 @@ export default function SignIn() {
   const history = useHistory();
   const classes = useStyles();
 
-  const { isLoading, setIsAuthenticated, currentUser } = useContext(
-    AuthContext
-  );
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [isSigningIn, setIsSigningIn] = useState(false);
+
+  //SNACKBAR STATE -------------------//
+  const [snackBarState, setSnackBarState] = useState(false);
+
+  const handleCloseSnackBar = () => {
+    setSnackBarState(false);
+  };
+
+  //SNACKBAR STATE -------------------//
+
   const handleSignIn = e => {
     e.preventDefault();
+    setIsSigningIn(true);
 
     signIn(email, password)
       .then(() => {
+        setIsSigningIn(false);
         history.push("/");
       })
       .catch(error => {
         console.log(error);
+        setIsSigningIn(false);
+        setSnackBarState(true);
       });
   };
 
@@ -75,7 +81,7 @@ export default function SignIn() {
         <img src={logo} alt='mullaly residence' width='40px' />
         <Typography variant='h6'>Mullaly Residence</Typography>
         <br />
-        <form className={classes.form} noValidate onSubmit={handleSignIn}>
+        <form className={classes.form} onSubmit={handleSignIn}>
           <TextField
             variant='outlined'
             margin='normal'
@@ -113,14 +119,21 @@ export default function SignIn() {
             variant='contained'
             color='primary'
             className={classes.submit}
+            disabled={isSigningIn}
           >
-            Sign In
+            {isSigningIn ? "Signing In..." : "Sign In"}
           </Button>
         </form>
       </div>
       <Box mt={8}>
         <Copyright />
       </Box>
+      <Snackbar
+        open={snackBarState}
+        onClose={handleCloseSnackBar}
+        message='Invalid Username and password.'
+      />
+      ;
     </Container>
   );
 }
