@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Route, Redirect } from "react-router-dom";
-import { useContext } from "react";
 import { AuthContext } from "./contexts/AuthContext";
 import { CircularProgress } from "@material-ui/core";
 
-const PublicRoute = ({ component: Component, ...rest }) => {
+import { useHistory } from "react-router-dom";
+
+const PublicRoute = ({ component: Component, restricted, ...rest }) => {
   const { currentUser, isLoading } = useContext(AuthContext);
+  const history = useHistory();
 
   return (
+    // restricted = false meaning public route
+    // restricted = true meaning restricted route
     <Route
       {...rest}
       render={props => {
@@ -30,7 +34,11 @@ const PublicRoute = ({ component: Component, ...rest }) => {
           );
         }
 
-        return !!currentUser ? <Redirect to='/' /> : <Component {...props} />;
+        return !!currentUser && restricted ? (
+          <Redirect to='/' />
+        ) : (
+          <Component {...props} />
+        );
       }}
     />
   );

@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 
-import { Switch } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import NotFound from "./components/layout/NotFound";
 import House from "./components/pages/House";
 import Home from "./components/pages/Home";
@@ -15,7 +15,7 @@ const Routes = props => {
         <PrivateRoute exact path='/' component={Home} />
         <PrivateRoute path={`/boarding-house`} component={House} />
 
-        <PublicRoute path='/login' component={SignIn} />
+        <PublicRoute restricted={true} path='/login' component={SignIn} exact />
 
         <PrivateRoute component={NotFound} />
       </Switch>

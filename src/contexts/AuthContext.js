@@ -15,14 +15,15 @@ const AuthContextProvider = props => {
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged(user => {
-      setIsLoading(false);
       if (user) {
         setCurrentUser(user);
+        setIsLoading(false);
         // setIsAuthenticated(true);
       }
 
       if (user === null) {
         setCurrentUser(null);
+        setIsLoading(false);
         // setIsAuthenticated(false);
       }
     });
